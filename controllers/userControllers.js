@@ -8,7 +8,6 @@ const signUp = async (req, res, next) => {
   try {
     const user = await Users.findUserByEmail(req.body.email)
     res.locals.user = user
-    // console.log(res.locals.user);
     if (user) {
       return res.status(HttpCode.CONFLICT).json({ status: 'error', code: HttpCode.CONFLICT, message: 'Email in use' })
     }
@@ -27,6 +26,7 @@ const logIn = async (req, res, next) => {
   try {
     const user = await Users.findUserByEmail(req.body.email)
     const isValidPassword = await user?.isValidPassword(req.body.password)
+    console.log(req.body.password)
 
     if (!user || !isValidPassword) {
       return res.status(HttpCode.UNAUTHORIZED)
@@ -56,12 +56,22 @@ const logout = async (req, res, next) => {
 const userBalanceUpdate = async (req, res, next) => {
   try {
     const { balance } = req.body
-    console.log(balance)
     const id = res.locals.user.id
-    console.log(id)
     await Users.findUserById(id)
-    await Users.updateBalance(balance)
+    await Users.updateBalance(id, balance)
     return res.status(HttpCode.OK).json({ status: 'succes', payload: balance })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getUserBalance = async (req, res, next) => {
+  try {
+    // const { balance } = req.body
+    const id = res.locals.user.id
+    await Users.findUserById(id)
+    const userbalance = await Users.getBalance(id)
+    return res.status(HttpCode.OK).json({ status: 'succes', payload: userbalance })
   } catch (error) {
     next(error)
   }
@@ -71,5 +81,6 @@ module.exports = {
   signUp,
   logIn,
   logout,
-  userBalanceUpdate
+  userBalanceUpdate,
+  getUserBalance
 }

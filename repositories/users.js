@@ -35,9 +35,17 @@ const findUserById = async (id) => {
   }
 }
 
-const updateBalance = async (data) => {
+const updateBalance = async (id, data) => {
   try {
-    return await User.updateOne({ balance: data })
+    return await User.updateOne({ _id: id }, { balance: data })
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+const getBalance = async (id) => {
+  try {
+    return await User.findOne({ _id: id }, 'balance')
   } catch (error) {
     console.log(error.message)
   }
@@ -48,5 +56,6 @@ module.exports = {
   createUser,
   updateToken,
   findUserById,
-  updateBalance
+  updateBalance,
+  getBalance
 }
