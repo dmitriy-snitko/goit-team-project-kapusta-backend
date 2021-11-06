@@ -8,9 +8,11 @@ const findUserByEmail = async (email) => {
   }
 }
 
-const createUser = async (body) => {
+const createUser = async ({ _id, email, password }) => {
   try {
-    const user = new User(body)
+    const user = new User({ _id, email })
+    user.setPassword(password)
+
     return await user.save()
   } catch (error) {
     console.log(error.message)
