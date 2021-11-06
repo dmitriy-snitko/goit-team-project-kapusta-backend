@@ -1,12 +1,46 @@
-const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose')
+const { Schema, model } = mongoose
 
-const userSchema = Schema(
-  {},
-  { versionKey: false, timestamps: true },
-)
+const transactionSchema = Schema({
 
-const Transaction = model('transaction', userSchema)
+  typeOftransactions: {
+    type: Boolean
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  },
+  fullDate: {
+    type: String
+  },
+  month: {
+    type: String
+  },
+  day: {
+    type: String
+  }
 
-module.exports = {
-  Transaction
-}
+}, { versionKey: false, timestamps: true })
+
+const Transaction = model('transaction', transactionSchema)
+
+module.exports = Transaction
+
+//   const data = Date.now()
+//   var options = {
+//   year: 'numeric',
+//   month: 'long',
+//   day: 'numeric',
+//   timezone: 'UTC',
+
+// };
+
+//   console.log(data.toLocaleString("ru", options));

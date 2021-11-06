@@ -3,7 +3,7 @@ const sendSeccessRes = (res, data, status = 200, message) => {
     status: 'seccess',
     code: status,
     data,
-    message,
+    message
   })
 }
 
