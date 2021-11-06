@@ -53,12 +53,15 @@ const logout = async (req, res, next) => {
   }
 }
 
-const UserBalanceUpdate = async (req, res, next) => {
+const userBalanceUpdate = async (req, res, next) => {
   try {
+    const { balance } = req.body
+    console.log(balance)
     const id = res.locals.user.id
+    console.log(id)
     await Users.findUserById(id)
-    // const { balance } = req.body
-    // return res.status(HttpCode.OK).json({ status: 'succes', payload: data })
+    await Users.updateBalance(balance)
+    return res.status(HttpCode.OK).json({ status: 'succes', payload: balance })
   } catch (error) {
     next(error)
   }
@@ -68,5 +71,5 @@ module.exports = {
   signUp,
   logIn,
   logout,
-  UserBalanceUpdate
+  userBalanceUpdate
 }

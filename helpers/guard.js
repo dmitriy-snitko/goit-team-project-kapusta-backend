@@ -19,9 +19,6 @@ const guard = (req, res, next) => {
       })
     }
     res.locals.user = user // req.user = user; так зазвичай роблять.
-
-    console.log(user)
-
     return next()
   })(req, res, next)
 }
