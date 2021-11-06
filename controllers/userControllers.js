@@ -26,7 +26,6 @@ const logIn = async (req, res, next) => {
   try {
     const user = await Users.findUserByEmail(req.body.email)
     const isValidPassword = await user?.isValidPassword(req.body.password)
-    console.log(req.body.password)
 
     if (!user || !isValidPassword) {
       return res.status(HttpCode.UNAUTHORIZED)

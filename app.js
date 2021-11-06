@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express()
 
 const usersRouter = require('./routes/api/users')
-// const transactionsRouter = require('./routes/api/transactions')
+const transactionsRouter = require('./routes/api/transactions')
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
@@ -14,7 +14,7 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/api/users', usersRouter)
-// app.use('/api/transactions', transactionsRouter)
+app.use('/api/transactions', transactionsRouter)
 
 app.use((req, res) => {
   res.status(404).json({
