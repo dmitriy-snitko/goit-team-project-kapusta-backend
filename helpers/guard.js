@@ -1,0 +1,29 @@
+const passport = require('passport')
+require('./passport')
+const HttpCode = require('../helpers/constants')
+
+const guard = (req, res, next) => {
+  passport.authenticate('jwt', { session: false }, (err, user) => {
+    const headerAuth = req.get('Authorization')
+    let token = null
+    if (headerAuth) {
+      token = headerAuth.split(' ')[1]
+
+      // console.log(token);
+    }
+    if (err || !user || token !== user?.token) {
+      return res.status(HttpCode.UNAUTHORIZED).json({
+        status: 'error',
+        code: HttpCode.UNAUTHORIZED,
+        message: 'Not authorized guard'
+      })
+    }
+    res.locals.user = user // req.user = user; так зазвичай роблять.
+
+    console.log(user)
+
+    return next()
+  })(req, res, next)
+}
+
+module.exports = guard
