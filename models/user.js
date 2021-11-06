@@ -1,31 +1,35 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 
-const userSchema = Schema({
+const userSchema = Schema(
+  {
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+    },
 
-  password: {
-    type: String,
-    required: [true, 'Password is required']
+    token: {
+      type: String,
+      default: null,
+    },
+    verifyToken: {
+      type: String,
+    },
+    balance: {
+      type: Number,
+    },
   },
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true
-  },
+  { versionKey: false, timestamps: true },
+)
 
-  token: {
-    type: String,
-    default: null
-  },
-  verifyToken: {
-    type: String
-
-  },
-  balance: {
-    type: Number
-  }
-
-}, { versionKey: false, timestamps: true })
+userSchema.methods.setPassword = function (password) {
+  this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+}
 
 userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, this.password)

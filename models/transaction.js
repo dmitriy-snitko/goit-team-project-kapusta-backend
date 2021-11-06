@@ -1,38 +1,59 @@
-const mongoose = require('mongoose')
-const { Schema, model } = mongoose
+const { Schema, model } = require('mongoose')
+const Joi = require('joi')
 
-const transactionSchema = Schema({
+const transactionSchema = Schema(
+  {
+    typeOftransactions: {
+      type: Boolean,
+      required: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    },
+    fullDate: {
+      type: String,
+    },
+    month: {
+      type: String,
+    },
+    day: {
+      type: String,
+    },
+  },
+  { versionKey: false, timestamps: true },
+)
 
-  typeOftransactions: {
-    type: Boolean
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  category: {
-    type: String,
-    required: true
-  },
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
-  },
-  fullDate: {
-    type: String
-  },
-  month: {
-    type: String
-  },
-  day: {
-    type: String
-  }
+const transactionJoiSchema = Joi.object({
+  typeOftransactions: Joi.boolean().required(),
 
-}, { versionKey: false, timestamps: true })
+  amount: Joi.number().required(),
+
+  description: Joi.string().required(),
+
+  category: Joi.string().required(),
+
+  fullDate: Joi.string(),
+})
 
 const Transaction = model('transaction', transactionSchema)
 
-module.exports = Transaction
+module.exports = {
+  Transaction,
+  transactionJoiSchema,
+}
 
 //   const data = Date.now()
 //   var options = {

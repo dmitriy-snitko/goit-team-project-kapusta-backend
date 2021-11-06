@@ -1,7 +1,7 @@
-const sendSeccessRes = require('./sendSeccessRes')
+const sendSuccessRes = require('./sendSuccessRes')
 const HttpCode = require('./constants')
 
 module.exports = {
-  sendSeccessRes,
-  HttpCode
+  sendSuccessRes,
+  HttpCode,
 }
