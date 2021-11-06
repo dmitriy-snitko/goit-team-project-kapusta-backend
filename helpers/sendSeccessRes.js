@@ -1,10 +1,10 @@
-const sendSeccessRes = (res, data, status = 200, message) => {
+const sendSuccessRes = (res, data, status = 200, message) => {
   res.status(status).json({
-    status: 'seccess',
+    status: 'success',
     code: status,
     data,
     message
   })
 }
 
-module.exports = sendSeccessRes
+module.exports = sendSuccessRes
