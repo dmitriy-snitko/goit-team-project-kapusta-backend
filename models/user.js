@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
-
 const userSchema = Schema({
 
   password: {
@@ -28,6 +27,8 @@ const userSchema = Schema({
 }, { versionKey: false, timestamps: true })
 
 userSchema.methods.isValidPassword = async function (password) {
+  console.log('userShema', password)
+  console.log('this', this.password)
   return await bcrypt.compare(password, this.password)
 }
 
