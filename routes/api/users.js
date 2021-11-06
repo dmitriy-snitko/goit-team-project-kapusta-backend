@@ -6,5 +6,5 @@ const guard = require('../../helpers/guard')
 router.post('/singup', controllers.signUp)
 router.post('/login', controllers.logIn)
 router.post('/logout', guard, controllers.logout)
-router.post('/', controllers.balanceUpdate)
+router.post('/', guard, controllers.userBalanceUpdate)
 module.exports = router

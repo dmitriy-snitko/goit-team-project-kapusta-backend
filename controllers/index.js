@@ -1,8 +1,8 @@
-const { signUp, logIn, logout, UserBalanceUpdate } = require('./userControllers')
+const { signUp, logIn, logout, userBalanceUpdate } = require('./userControllers')
 
 module.exports = {
   signUp,
   logIn,
   logout,
-  UserBalanceUpdate
+  userBalanceUpdate
 }
