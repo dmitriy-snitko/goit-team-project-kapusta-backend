@@ -7,6 +7,7 @@ const { validation, ctrlWrap } = require('../../middlewares')
 const controllers = require('../../controllers/transactions')
 const guard = require('../../helpers/guard')
 
+router.get('/', guard, ctrlWrap(controllers.getAllByUser))
 router.post(
   '/incoming',
   guard,
