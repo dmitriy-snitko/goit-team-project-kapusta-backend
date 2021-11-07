@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
+const Joi = require('joi')
 
 const userSchema = Schema({
   password: {
@@ -26,6 +27,14 @@ const userSchema = Schema({
 
 }, { versionKey: false, timestamps: true })
 
+const userJoiSchema = Joi.object({
+
+  password: Joi.string().required(),
+
+  email: Joi.string().required()
+
+})
+
 userSchema.methods.setPassword = function (password) {
   this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
@@ -36,4 +45,7 @@ userSchema.methods.isValidPassword = async function (password) {
 
 const User = model('user', userSchema)
 
-module.exports = User
+module.exports = {
+  User,
+  userJoiSchema
+}

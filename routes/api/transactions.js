@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { transactionJoiSchema } = require('../../models/transaction')
+const { transactionJoiSchema, balanceByYearJoiSchema } = require('../../models/transaction')
 const { validation, ctrlWrap } = require('../../middlewares')
 
 const controllers = require('../../controllers/transactions')
@@ -26,4 +26,16 @@ router.delete(
   ctrlWrap(controllers.removeTransactionById)
 )
 
+router.get(
+  '/incoming',
+  guard,
+  validation(balanceByYearJoiSchema),
+  controllers.getBalanceIncomings
+)
+router.get(
+  '/outgoings',
+  guard,
+  validation(balanceByYearJoiSchema),
+  controllers.getBalanceOutgoings
+)
 module.exports = router
