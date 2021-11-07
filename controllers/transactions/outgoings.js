@@ -1,10 +1,15 @@
 const { sendSuccessRes } = require('../../helpers')
-const { Transaction } = require('../../models')
+const { Transaction, User } = require('../../models')
 
 const outgoings = async (req, res) => {
-  console.log(res.locals.user._id)
-  const newOutgoing = { ...req.body, owner: res.locals.user._id }
+  const id = res.locals.user._id
+  const newOutgoing = { ...req.body, owner: id }
   const result = await Transaction.create(newOutgoing)
+
+  const newBalance = res.locals.user.balance - newOutgoing.amount
+
+  await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true })
+
   sendSuccessRes(res, { result }, 201)
 }
 
