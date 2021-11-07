@@ -13,7 +13,7 @@ const removeTransactionById = async (req, res) => {
     })
     return
   }
-  sendSuccessRes(res, { message: 'Contact deleted' })
+  sendSuccessRes(res, { message: 'Transaction deleted' })
 }
 
 module.exports = removeTransactionById
