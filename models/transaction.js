@@ -4,8 +4,8 @@ const Joi = require('joi')
 const transactionSchema = Schema(
   {
     typeOftransactions: {
-      type: Boolean,
-      required: true
+      type: Boolean
+      // required: true
     },
     amount: {
       type: Number,
@@ -29,7 +29,7 @@ const transactionSchema = Schema(
     month: {
       type: String
     },
-    day: {
+    year: {
       type: String
     }
   },
@@ -37,7 +37,7 @@ const transactionSchema = Schema(
 )
 
 const transactionJoiSchema = Joi.object({
-  typeOftransactions: Joi.boolean().required(),
+  // typeOftransactions: Joi.boolean().required(),
 
   amount: Joi.number().required(),
 
@@ -48,11 +48,19 @@ const transactionJoiSchema = Joi.object({
   fullDate: Joi.string()
 })
 
+const balanceByYearJoiSchema = Joi.object({
+
+  year: Joi.string().required(),
+
+})
+
+
 const Transaction = model('transaction', transactionSchema)
 
 module.exports = {
   Transaction,
-  transactionJoiSchema
+  transactionJoiSchema,
+  balanceByYearJoiSchema
 }
 
 //   const data = Date.now()
