@@ -4,8 +4,8 @@ const Joi = require('joi')
 const transactionSchema = Schema(
   {
     typeOftransactions: {
-      type: Boolean
-      // required: true
+      type: Boolean,
+      required: true
     },
     amount: {
       type: Number,
@@ -37,7 +37,6 @@ const transactionSchema = Schema(
 )
 
 const transactionJoiSchema = Joi.object({
-  // typeOftransactions: Joi.boolean().required(),
 
   amount: Joi.number().required(),
 
@@ -45,15 +44,16 @@ const transactionJoiSchema = Joi.object({
 
   category: Joi.string().required(),
 
-  fullDate: Joi.string()
+  fullDate: Joi.string(),
+
+  month: Joi.string().required(),
+
+  year: Joi.number().required()
 })
 
 const balanceByYearJoiSchema = Joi.object({
-
-  year: Joi.string().required(),
-
+  year: Joi.string().required()
 })
-
 
 const Transaction = model('transaction', transactionSchema)
 
