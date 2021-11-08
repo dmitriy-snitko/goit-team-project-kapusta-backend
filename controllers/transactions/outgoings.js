@@ -3,7 +3,7 @@ const { Transaction, User } = require('../../models')
 
 const outgoings = async (req, res) => {
   const id = res.locals.user._id
-  const newOutgoing = { ...req.body, owner: id }
+  const newOutgoing = { ...req.body, owner: id, typeOftransactions: false }
   const result = await Transaction.create(newOutgoing)
 
   const newBalance = res.locals.user.balance - newOutgoing.amount
