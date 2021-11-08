@@ -11,14 +11,6 @@ const getAllOutgoingsByParams = async (req, res, next) => {
   })
 
   const total = totalAmount(allOutgoingsByParams)
-  const svodka = allOutgoingsByParams.map((outgoing) => {
-    return {
-      [outgoing.month]: outgoing.amount,
-    }
-  })
-  console.log(svodka)
-
-  svodka.map((object) => {})
 
   sendSuccessRes(res, { total, allOutgoingsByParams }, 201)
 }

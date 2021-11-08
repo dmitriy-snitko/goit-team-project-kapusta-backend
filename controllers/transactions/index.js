@@ -1,4 +1,4 @@
-const incoming = require('./incoming')
+const incoming = require('./incomings')
 const outgoings = require('./outgoings')
 const getAllIncomingsByPeriod = require('./getAllIncomingsByPeriod')
 const getAllOutgoingsByParams = require('./getAllOutgoingsByParams')

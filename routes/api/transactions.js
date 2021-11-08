@@ -12,7 +12,7 @@ router.post(
   '/incomings',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.incoming),
+  ctrlWrap(controllers.incomings),
 )
 router.post(
   '/outgoings',
