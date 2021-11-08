@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const { transactionJoiSchema } = require('../../models/transaction')
+const {
+  transactionJoiSchema,
+  transactionByMonthJoiSchema,
+} = require('../../models/transaction')
 const { validation, ctrlWrap } = require('../../middlewares')
 
 const controllers = require('../../controllers/transactions')
@@ -29,4 +32,18 @@ router.delete(
 
 router.get('/incomings', guard, controllers.getAllIncomingsByPeriod)
 router.get('/outgoings', guard, controllers.getAllOutgoingsByParams)
+
+router.get(
+  '/incomings/month',
+  guard,
+  validation(transactionByMonthJoiSchema),
+  controllers.getIncomingsByMonth,
+)
+router.get(
+  '/outgoings/month',
+  guard,
+  validation(transactionByMonthJoiSchema),
+  controllers.getOutgoingsByMonth,
+)
+
 module.exports = router

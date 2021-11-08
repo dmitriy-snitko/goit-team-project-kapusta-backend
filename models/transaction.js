@@ -52,6 +52,12 @@ const transactionJoiSchema = Joi.object({
   year: Joi.number().required(),
 })
 
+const transactionByMonthJoiSchema = Joi.object({
+  year: Joi.number().required(),
+
+  month: Joi.string().required(),
+})
+
 const balanceByYearJoiSchema = Joi.object({
   year: Joi.string().required(),
 })
@@ -62,6 +68,7 @@ module.exports = {
   Transaction,
   transactionJoiSchema,
   balanceByYearJoiSchema,
+  transactionByMonthJoiSchema,
 }
 
 //   const data = Date.now()

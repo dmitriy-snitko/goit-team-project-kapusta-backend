@@ -5,6 +5,8 @@ const getAllOutgoingsByParams = require('./getAllOutgoingsByParams')
 const removeTransactionById = require('./removeTransactionById')
 const getAllByUser = require('./getAllByUser')
 const setBalance = require('./setBalance')
+const getIncomingsByMonth = require('./getIncomingsByMonth')
+const getOutgoingsByMonth = require('./getOutgoingsByMonth')
 
 module.exports = {
   incoming,
@@ -14,4 +16,6 @@ module.exports = {
   getAllOutgoingsByParams,
   getAllByUser,
   setBalance,
+  getIncomingsByMonth,
+  getOutgoingsByMonth,
 }
