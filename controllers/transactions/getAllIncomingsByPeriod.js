@@ -8,7 +8,7 @@ const getAllIncomingsByPeriod = async (req, res, next) => {
     owner: id,
     ...req.query,
     typeOftransactions: true,
-  })
+  }).sort({ amount: -1 })
 
   const total = totalAmount(allIncomingsByPeriod)
 

@@ -8,7 +8,7 @@ const getAllOutgoingsByParams = async (req, res, next) => {
     owner: id,
     ...req.query,
     typeOftransactions: false,
-  })
+  }).sort({ amount: -1 })
 
   const total = totalAmount(allOutgoingsByParams)
 

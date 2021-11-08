@@ -10,11 +10,11 @@ const getOutgoingsByMonth = async (req, res, next) => {
     month,
     year,
     typeOftransactions: false,
-  })
+  }).sort({ amount: -1 })
 
   const total = totalAmount(outgoingsByMonth)
 
-  sendSuccessRes(res, { month, total }, 201)
+  sendSuccessRes(res, { month, total, outgoingsByMonth }, 201)
 }
 
 module.exports = getOutgoingsByMonth

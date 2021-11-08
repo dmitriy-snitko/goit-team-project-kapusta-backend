@@ -9,12 +9,12 @@ const getIncomingsByMonth = async (req, res, next) => {
     owner: id,
     month,
     year,
-    typeOftransactions: false,
-  })
+    typeOftransactions: true,
+  }).sort({ amount: -1 })
 
   const total = totalAmount(incomingsByMonth)
 
-  sendSuccessRes(res, { month, total }, 201)
+  sendSuccessRes(res, { month, total, incomingsByMonth }, 201)
 }
 
 module.exports = getIncomingsByMonth
