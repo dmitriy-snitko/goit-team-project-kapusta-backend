@@ -186,24 +186,13 @@
         "summary": "Income transactions",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Income transactions object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/transactionsRequest"
-              }
-            }
-          }
-        },
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/transactionsResponse"
+                  "$ref": "#/components/schemas/getAllTransactionsByUserResponse"
                 }
               }
             }
@@ -214,6 +203,35 @@
           },
           "401": {
             "description": "Not authorized",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Transactions"],
+        "summary": "Delete transaction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "transactionId",
+            "required": "true",
+            "type": "string",
+            "description": "Transaction`s Id"
+          }
+        ],
+        "security": [{ "Bearer": [] }],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
             "content": {}
           }
         }
@@ -370,43 +388,6 @@
           }
         }
       }
-    },
-    "/api/transactions": {
-      "delete": {
-        "tags": ["Transactions"],
-        "summary": "Delete transaction",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "transactionId",
-            "required": "true",
-            "type": "string",
-            "description": "Transaction`s Id"
-          }
-        ],
-        "security": [{ "Bearer": [] }],
-
-        "responses": {
-          "201": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          },
-          "409": {
-            "description": "Provided email already exists",
-            "content": {}
-          }
-        }
-      }
     }
   },
   "components": {
@@ -434,11 +415,6 @@
             "type": "string",
             "description": "User's id",
             "example": "618843346932da16c54281bd"
-          },
-          "token": {
-            "type": "string",
-            "description": "User's token",
-            "example": "eynR5cCI6IkpXVCJ9.eyJpZCI6Ij1MiwiZX2NDA2NDUyfQ.nzoz39SSRn_oq20TJZNI"
           }
         }
       },
@@ -500,7 +476,14 @@
       },
       "transactionsRequest": {
         "type": "object",
-        "required": ["amount", "description", "category", "month", "year"],
+        "required": [
+          "amount",
+          "description",
+          "category",
+          "day",
+          "month",
+          "year"
+        ],
         "properties": {
           "amount": {
             "type": "integer",
@@ -516,6 +499,11 @@
             "type": "string",
             "description": "Transaction`s category",
             "example": "Food"
+          },
+          "day": {
+            "type": "string",
+            "description": "Transaction`s date (day)",
+            "example": "8"
           },
           "month": {
             "type": "string",
@@ -568,6 +556,11 @@
                     "description": "User`s id",
                     "example": "61885ae703bc9278eb40fcc9"
                   },
+                  "day": {
+                    "type": "string",
+                    "description": "Transaction`s date (day)",
+                    "example": "8"
+                  },
                   "month": {
                     "type": "string",
                     "description": "Transaction`s date (month)",
@@ -577,6 +570,29 @@
                     "type": "string",
                     "description": "Transaction`s date (year)",
                     "example": "2021"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "getAllTransactionsByUserResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "transactions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "description": "Transaction`s id",
+                      "example": "618945b63e83a1052b6b5554"
+                    }
                   }
                 }
               }
