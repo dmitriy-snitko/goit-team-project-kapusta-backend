@@ -1,41 +1,45 @@
 const express = require('express')
 const router = express.Router()
 
-const { transactionJoiSchema, balanceByYearJoiSchema } = require('../../models/transaction')
+const {
+  transactionJoiSchema,
+  balanceByYearJoiSchema,
+} = require('../../models/transaction')
 const { validation, ctrlWrap } = require('../../middlewares')
 
 const controllers = require('../../controllers/transactions')
 const guard = require('../../helpers/guard')
 
+router.get('/', guard, ctrlWrap(controllers.getAllByUser))
 router.post(
   '/incoming',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.incoming)
+  ctrlWrap(controllers.incoming),
 )
 router.post(
   '/outgoings',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.outgoings)
+  ctrlWrap(controllers.outgoings),
 )
 
 router.delete(
   '/:transactionId',
   guard,
-  ctrlWrap(controllers.removeTransactionById)
+  ctrlWrap(controllers.removeTransactionById),
 )
 
 router.get(
   '/incoming',
   guard,
   validation(balanceByYearJoiSchema),
-  controllers.getBalanceIncomings
+  controllers.getBalanceIncomings,
 )
 router.get(
   '/outgoings',
   guard,
   validation(balanceByYearJoiSchema),
-  controllers.getBalanceOutgoings
+  controllers.getBalanceOutgoings,
 )
 module.exports = router

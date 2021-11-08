@@ -1,14 +1,15 @@
 const { sendSuccessRes } = require('../../helpers')
-const { Transaction } = require('../../models')
+const { Transaction, User } = require('../../models')
 
 const outgoings = async (req, res) => {
-  const data = new Date()
-  const monthOptions = { month: 'long', timezone: 'UTC' }
-  const month = data.toLocaleString('ru', monthOptions)
-  const yearOptions = { year: 'numeric', timezone: 'UTC' }
-  const year = data.toLocaleString('ru', yearOptions)
-  const newOutgoing = { ...req.body, owner: res.locals.user._id, month: month, year: year, typeOftransactions: false }
+  const id = res.locals.user._id
+  const newOutgoing = { ...req.body, owner: id }
   const result = await Transaction.create(newOutgoing)
+
+  const newBalance = res.locals.user.balance - newOutgoing.amount
+
+  await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true })
+
   sendSuccessRes(res, { result }, 201)
 }
 
