@@ -12,21 +12,21 @@ router.post(
   '/incomings',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.incoming)
+  ctrlWrap(controllers.incoming),
 )
 router.post(
   '/outgoings',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.outgoings)
+  ctrlWrap(controllers.outgoings),
 )
 
 router.delete(
   '/:transactionId',
   guard,
-  ctrlWrap(controllers.removeTransactionById)
+  ctrlWrap(controllers.removeTransactionById),
 )
 
 router.get('/incomings', guard, controllers.getAllIncomingsByPeriod)
-router.get('/outgoings', guard, controllers.getAllOutgoingsByPeriod)
+router.get('/outgoings', guard, controllers.getAllOutgoingsByParams)
 module.exports = router
