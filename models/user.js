@@ -2,37 +2,37 @@ const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const Joi = require('joi')
 
-const userSchema = Schema({
-  password: {
-    type: String,
-    required: [true, 'Password is required']
-  },
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true
-  },
+const userSchema = Schema(
+  {
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+    },
 
-  token: {
-    type: String,
-    default: null
+    token: {
+      type: String,
+      default: null,
+    },
+    verifyToken: {
+      type: String,
+    },
+    balance: {
+      type: Number,
+      default: 0,
+    },
   },
-  verifyToken: {
-    type: String
-
-  },
-  balance: {
-    type: Number
-  }
-
-}, { versionKey: false, timestamps: true })
+  { versionKey: false, timestamps: true },
+)
 
 const userJoiSchema = Joi.object({
-
   password: Joi.string().required(),
 
-  email: Joi.string().required()
-
+  email: Joi.string().required(),
 })
 
 userSchema.methods.setPassword = function (password) {
@@ -47,5 +47,5 @@ const User = model('user', userSchema)
 
 module.exports = {
   User,
-  userJoiSchema
+  userJoiSchema,
 }

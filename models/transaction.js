@@ -47,9 +47,9 @@ const transactionJoiSchema = Joi.object({
 
   fullDate: Joi.string(),
 
-  month: Joi.string(),
+  month: Joi.string().required(),
 
-  year: Joi.string(),
+  year: Joi.number().required(),
 })
 
 const balanceByYearJoiSchema = Joi.object({
