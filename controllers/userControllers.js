@@ -29,7 +29,7 @@ const logIn = async (req, res, next) => {
 
     if (!user || !isValidPassword) {
       return res.status(HttpCode.UNAUTHORIZED)
-        .json({ status: 'error', code: HttpCode.CONFLICT, message: 'Email or password is wrong' })
+        .json({ status: 'error', code: HttpCode.UNAUTHORIZED, message: 'Email or password is wrong' })
     }
     const id = user.id
     const payload = { id }
