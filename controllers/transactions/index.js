@@ -7,6 +7,8 @@ const getAllByUser = require('./getAllByUser')
 const setBalance = require('./setBalance')
 const getIncomingsByMonth = require('./getIncomingsByMonth')
 const getOutgoingsByMonth = require('./getOutgoingsByMonth')
+const outgoingsSummaryForYear = require('./outgoingsSummaryForYear')
+const incomingsSummaryForYear = require('./incomingsSummaryForYear')
 
 module.exports = {
   incoming,
@@ -18,4 +20,6 @@ module.exports = {
   setBalance,
   getIncomingsByMonth,
   getOutgoingsByMonth,
+  outgoingsSummaryForYear,
+  incomingsSummaryForYear
 }

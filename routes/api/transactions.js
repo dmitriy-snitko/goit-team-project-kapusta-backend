@@ -30,8 +30,8 @@ router.delete(
   ctrlWrap(controllers.removeTransactionById),
 )
 
-router.get('/incomings', guard, controllers.getAllIncomingsByPeriod)
-router.get('/outgoings', guard, controllers.getAllOutgoingsByParams)
+router.get('/incomings', guard, controllers.incomingsSummaryForYear)
+router.get('/outgoings', guard, controllers.outgoingsSummaryForYear)
 
 router.get(
   '/incomings/month',
