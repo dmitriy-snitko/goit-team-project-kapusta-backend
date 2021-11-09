@@ -37,7 +37,7 @@ const transactionSchema = Schema(
 )
 
 const transactionJoiSchema = Joi.object({
-  typeOftransactions: Joi.boolean().required(),
+  // typeOftransactions: Joi.boolean().required(),
 
   amount: Joi.number().required(),
 
