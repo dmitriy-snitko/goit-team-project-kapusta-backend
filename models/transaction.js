@@ -50,10 +50,9 @@ const transactionJoiSchema = Joi.object({
 
 const balanceByYearJoiSchema = Joi.object({
 
-  year: Joi.string().required(),
+  year: Joi.string().required()
 
 })
-
 
 const Transaction = model('transaction', transactionSchema)
 
