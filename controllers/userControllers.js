@@ -16,7 +16,7 @@ const signUp = async (req, res, next) => {
     const payload = { id }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
     await Users.updateToken(id, token)
-    return res.status(HttpCode.CREATED).json({ status: 'succes', code: HttpCode.CREATED, id, token })
+    return res.status(HttpCode.CREATED).json({ status: 'succes', code: HttpCode.CREATED, id })
   } catch (error) {
     next(error)
   }
