@@ -336,7 +336,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/transactionsResponse"
+                  "$ref": "#/components/schemas/outgoingsTransactionsResponse"
                 }
               }
             }
@@ -535,6 +535,66 @@
                     "type": "boolean",
                     "description": "Transaction`s type",
                     "example": "true"
+                  },
+                  "amount": {
+                    "type": "integer",
+                    "description": "Transaction`s amount",
+                    "example": "10000"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Transaction`s description",
+                    "example": "Apple"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Transaction`s category",
+                    "example": "Food"
+                  },
+                  "owner": {
+                    "type": "string",
+                    "description": "User`s id",
+                    "example": "61885ae703bc9278eb40fcc9"
+                  },
+                  "day": {
+                    "type": "string",
+                    "description": "Transaction`s date (day)",
+                    "example": "8"
+                  },
+                  "month": {
+                    "type": "string",
+                    "description": "Transaction`s date (month)",
+                    "example": "11"
+                  },
+                  "year": {
+                    "type": "string",
+                    "description": "Transaction`s date (year)",
+                    "example": "2021"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "outgoingsTransactionsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "result": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "Transaction`s id",
+                    "example": "618945b63e83a1052b6b5554"
+                  },
+                  "typeOftransactions": {
+                    "type": "boolean",
+                    "description": "Transaction`s type",
+                    "example": "false"
                   },
                   "amount": {
                     "type": "integer",
