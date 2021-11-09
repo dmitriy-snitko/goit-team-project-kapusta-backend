@@ -5,38 +5,39 @@ const transactionSchema = Schema(
   {
     typeOftransactions: {
       type: Boolean,
-      required: true
+      required: true,
     },
     amount: {
       type: Number,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: true
+      required: true,
     },
     category: {
       type: String,
-      required: true
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'user'
+      ref: 'user',
     },
     fullDate: {
-      type: String
+      type: String,
     },
     month: {
-      type: String
+      type: String,
     },
     year: {
-      type: String
-    }
+      type: String,
+    },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 )
 
 const transactionJoiSchema = Joi.object({
+  // typeOftransactions: Joi.boolean().required(),
 
   amount: Joi.number().required(),
 
@@ -48,11 +49,11 @@ const transactionJoiSchema = Joi.object({
 
   month: Joi.string().required(),
 
-  year: Joi.number().required()
+  year: Joi.number().required(),
 })
 
 const balanceByYearJoiSchema = Joi.object({
-  year: Joi.string().required()
+  year: Joi.string().required(),
 })
 
 const Transaction = model('transaction', transactionSchema)
@@ -60,7 +61,7 @@ const Transaction = model('transaction', transactionSchema)
 module.exports = {
   Transaction,
   transactionJoiSchema,
-  balanceByYearJoiSchema
+  balanceByYearJoiSchema,
 }
 
 //   const data = Date.now()

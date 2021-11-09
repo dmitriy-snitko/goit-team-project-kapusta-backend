@@ -27,6 +27,6 @@ router.delete(
   ctrlWrap(controllers.removeTransactionById)
 )
 
-router.get('/incomings', guard, controllers.getAllIncomingsByPeriod)
-router.get('/outgoings', guard, controllers.getAllOutgoingsByPeriod)
+router.get('/incomings', guard, ctrlWrap(controllers.incomingsSummaryForYear))
+router.get('/outgoings', guard, ctrlWrap(controllers.outgoingsSummaryForYear))
 module.exports = router

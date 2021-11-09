@@ -10,7 +10,7 @@ const outgoings = async (req, res) => {
 
   await User.findByIdAndUpdate(id, { balance: newBalance }, { new: true })
 
-  sendSuccessRes(res, { result }, 201)
+  sendSuccessRes(res, { balance: newBalance, result }, 201)
 }
 
 module.exports = outgoings

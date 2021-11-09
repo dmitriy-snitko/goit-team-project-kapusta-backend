@@ -2,17 +2,19 @@ const { Transaction } = require('../../models')
 const { sendSuccessRes, totalAmount } = require('../../helpers')
 
 const getAllIncomingsByPeriod = async (req, res, next) => {
-  const id = res.locals.user.id
+  const { year } = req.query
+
+  const _id = res.locals.user.id
 
   const allIncomingsByPeriod = await Transaction.find({
-    owner: id,
-    ...req.query,
-    typeOftransactions: true,
+    owner: _id,
+    year,
+    typeOftransactions: true
   })
 
-  const total = totalAmount(allIncomingsByPeriod)
+  // const total = totalAmount(allIncomingsByPeriod)
 
-  sendSuccessRes(res, { total, allIncomingsByPeriod }, 201)
+  sendSuccessRes(res, allIncomingsByPeriod, 200, 'OK')
 }
 
 module.exports = getAllIncomingsByPeriod
