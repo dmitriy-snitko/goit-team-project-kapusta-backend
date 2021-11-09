@@ -49,7 +49,7 @@ const transactionJoiSchema = Joi.object({
 
   month: Joi.string().required(),
 
-  year: Joi.number().required(),
+  year: Joi.string().required()
 })
 
 const transactionByMonthJoiSchema = Joi.object({
