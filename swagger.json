@@ -183,7 +183,7 @@
     "/api/transactions/": {
       "get": {
         "tags": ["Transactions"],
-        "summary": "Income transactions",
+        "summary": "Details of expenses and income",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "responses": {
@@ -277,20 +277,17 @@
       },
       "get": {
         "tags": ["Transactions"],
-        "summary": "Income transactions",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
+        "summary": "Summary of current year income by month",
+        "parameters": [
+          {
+            "in": "queqy",
+            "name": "year",
+            "required": "true",
+            "type": "string",
+            "description": "Transaction date (year)"
           }
-        },
+        ],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
             "description": "Successful operation",
@@ -353,7 +350,7 @@
       },
       "get": {
         "tags": ["Transactions"],
-        "summary": "Income transactions",
+        "summary": "Summary of current year expenses by month",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
