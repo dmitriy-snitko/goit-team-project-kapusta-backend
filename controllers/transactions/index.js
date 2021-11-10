@@ -1,6 +1,6 @@
 const incoming = require('./incomings')
 const outgoings = require('./outgoings')
-const getAllIncomingsByPeriod = require('./getAllIncomingsByPeriod')
+const getAllIncomingsByParams = require('./getAllIncomingsByParams')
 const getAllOutgoingsByParams = require('./getAllOutgoingsByParams')
 const removeTransactionById = require('./removeTransactionById')
 const getAllByUser = require('./getAllByUser')
@@ -14,12 +14,12 @@ module.exports = {
   incoming,
   outgoings,
   removeTransactionById,
-  getAllIncomingsByPeriod,
+  getAllIncomingsByParams,
   getAllOutgoingsByParams,
   getAllByUser,
   setBalance,
   getIncomingsByMonth,
   getOutgoingsByMonth,
   outgoingsSummaryForYear,
-  incomingsSummaryForYear
+  incomingsSummaryForYear,
 }
