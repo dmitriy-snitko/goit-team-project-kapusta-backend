@@ -16,7 +16,7 @@ const summaryForYear = async (_id, year, typeOftransactions) => {
   }, [])
 
   const summary = allMonth.map(month => {
-    const summ = alltransactions.reduce((acc, transaction) => {
+    const sum = alltransactions.reduce((acc, transaction) => {
       if (transaction.month === month) {
         acc += transaction.amount
       }
@@ -24,7 +24,7 @@ const summaryForYear = async (_id, year, typeOftransactions) => {
       return acc
     }, 0)
 
-    return { month, summ }
+    return { month, sum }
   })
 
   return summary

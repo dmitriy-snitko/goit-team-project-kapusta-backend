@@ -13,8 +13,8 @@ const getTotal = (alltransactions) => {
   })
 
   const total = [
-    { name: 'incomings', sum: incomings },
-    { name: 'expenses', sum: expenses }
+    { type: 'incomings', sum: incomings },
+    { type: 'expenses', sum: expenses }
   ]
 
   return total

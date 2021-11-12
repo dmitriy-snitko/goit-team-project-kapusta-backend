@@ -3,7 +3,7 @@ const router = express.Router()
 
 const {
   transactionJoiSchema,
-  transactionByMonthJoiSchema,
+  transactionByMonthJoiSchema
 } = require('../../models/transaction')
 const { validation, ctrlWrap } = require('../../middlewares')
 
@@ -15,35 +15,35 @@ router.post(
   '/incomings',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.incomeings),
+  ctrlWrap(controllers.incomeings)
 )
 router.post(
   '/outgoings',
   guard,
   validation(transactionJoiSchema),
-  ctrlWrap(controllers.outgoings),
+  ctrlWrap(controllers.outgoings)
 )
 
 router.delete(
   '/:transactionId',
   guard,
-  ctrlWrap(controllers.removeTransactionById),
+  ctrlWrap(controllers.removeTransactionById)
 )
 
-router.get('/incomings', guard, controllers.incomingsSummaryForYear)
-router.get('/outgoings', guard, controllers.outgoingsSummaryForYear)
+router.get('/incomings', guard, ctrlWrap(controllers.incomingsSummaryForYear))
+router.get('/outgoings', guard, ctrlWrap(controllers.outgoingsSummaryForYear))
 
 router.get(
   '/incomings/month',
   guard,
   validation(transactionByMonthJoiSchema),
-  controllers.getIncomingsByMonth,
+  controllers.getIncomingsByMonth
 )
 router.get(
   '/outgoings/month',
   guard,
   validation(transactionByMonthJoiSchema),
-  controllers.getOutgoingsByMonth,
+  controllers.getOutgoingsByMonth
 )
 
 module.exports = router

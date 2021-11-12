@@ -9,7 +9,7 @@ const getIncomingsByMonth = require('./getIncomingsByMonth')
 const getOutgoingsByMonth = require('./getOutgoingsByMonth')
 const outgoingsSummaryForYear = require('./outgoingsSummaryForYear')
 const incomingsSummaryForYear = require('./incomingsSummaryForYear')
-const detailedInformation = require('./detailedIinformation')
+const detailedInformation = require('./detailedInformation')
 
 module.exports = {
   incomeings,

@@ -184,7 +184,22 @@
       "get": {
         "tags": ["Transactions"],
         "summary": "Details of expenses and income",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "queqy",
+            "name": "month",
+            "required": "true",
+            "type": "string",
+            "description": "Transaction date (month)"
+          },
+          {
+            "in": "queqy",
+            "name": "year",
+            "required": "true",
+            "type": "string",
+            "description": "Transaction date (year)"
+          }
+        ],
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
@@ -192,7 +207,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/getAllTransactionsByUserResponse"
+                  "$ref": "#/components/schemas/detailedInformationResponse"
                 }
               }
             }
@@ -289,12 +304,12 @@
         ],
         "security": [{ "Bearer": [] }],
         "responses": {
-          "201": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/SummaryResponse"
                 }
               }
             }
@@ -303,8 +318,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Not authorized",
             "content": {}
           }
         }
@@ -351,26 +366,23 @@
       "get": {
         "tags": ["Transactions"],
         "summary": "Summary of current year expenses by month",
-        "parameters": [],
-        "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Registration's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RegistrationRequest"
-              }
-            }
+        "parameters": [
+          {
+            "in": "queqy",
+            "name": "year",
+            "required": "true",
+            "type": "string",
+            "description": "Transaction date (year)"
           }
-        },
+        ],
+        "security": [{ "Bearer": [] }],
         "responses": {
           "201": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationResponse"
+                  "$ref": "#/components/schemas/SummaryResponse"
                 }
               }
             }
@@ -379,8 +391,8 @@
             "description": "Bad request (invalid request body)",
             "content": {}
           },
-          "409": {
-            "description": "Provided email already exists",
+          "401": {
+            "description": "Not authorized",
             "content": {}
           }
         }
@@ -634,24 +646,186 @@
           }
         }
       },
-      "getAllTransactionsByUserResponse": {
+      "detailedInformationResponse": {
         "type": "object",
         "properties": {
           "data": {
             "type": "object",
             "properties": {
-              "transactions": {
+              "total": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "_id": {
+                    "type": {
                       "type": "string",
-                      "description": "Transaction`s id",
-                      "example": "618945b63e83a1052b6b5554"
+                      "description": "Type of transaction",
+                      "example": "incomings"
+                    },
+                    "sum": {
+                      "type": "integer",
+                      "description": "Amount for the specified month",
+                      "example": "33000"
                     }
                   }
-                }
+                },
+                "example": [
+                  { "type": "incomings", "sum": 38600 },
+                  { "type": "expenses", "sum": 21300 }
+                ]
+              },
+              "incomings": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "Name of category",
+                      "example": "ЗП"
+                    },
+                    "sum": {
+                      "type": "string",
+                      "description": "Amount for the specified month",
+                      "example": "35000"
+                    },
+                    "details": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "Name of category",
+                            "example": "Моя"
+                          },
+                          "sum": {
+                            "type": "integer",
+                            "description": "Amount for the specified month",
+                            "example": "20000"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "category:": "ЗП",
+                    "sum": 35000,
+                    "details": [
+                      { "name": "Моя", "sum": 20000 },
+                      { "name": "Жены", "sum": 15000 }
+                    ]
+                  },
+                  {
+                    "category:": "Доп. доход",
+                    "sum": 3600,
+                    "details": [{ "name": "Шабашка", "sum": 3600 }]
+                  }
+                ]
+              },
+              "expenses": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "description": "Name of category",
+                      "example": "Продукты"
+                    },
+                    "sum": {
+                      "type": "string",
+                      "description": "Amount for the specified month",
+                      "example": "1500"
+                    },
+                    "details": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "description": "Name of category",
+                            "example": "Мясо"
+                          },
+                          "sum": {
+                            "type": "integer",
+                            "description": "Amount for the specified month",
+                            "example": "1500"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "category:": "Продукты",
+                    "sum": 3000,
+                    "details": [
+                      { "name": "Мясо", "sum": 2000 },
+                      { "name": "Рыба", "sum": 500 },
+                      { "name": "Молоко", "sum": 500 }
+                    ]
+                  },
+                  {
+                    "category:": "Алкоголь",
+                    "sum": 1600,
+                    "details": [
+                      { "name": "Пиво", "sum": 400 },
+                      { "name": "Водка", "sum": 200 },
+                      { "name": "Виски", "sum": 1000 }
+                    ]
+                  },
+                  {
+                    "category:": "Развлечение",
+                    "sum": 1500,
+                    "details": [
+                      { "name": "Кино", "sum": 300 },
+                      { "name": "Боулинг", "sum": 700 },
+                      { "name": "Бильярд", "sum": 500 }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "SummaryResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "year": {
+                "type": "string",
+                "description": "Transaction`s date (year)",
+                "example": "2021"
+              },
+              "result": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "month": {
+                      "type": "string",
+                      "description": "Transaction`s date (month)",
+                      "example": "10"
+                    },
+                    "sum": {
+                      "type": "string",
+                      "description": "Amount for the current month",
+                      "example": "33000"
+                    }
+                  }
+                },
+                "example": [
+                  { "month": "10", "sum": 33000 },
+                  { "month": "11", "sum": 28000 }
+                ]
               }
             }
           }
