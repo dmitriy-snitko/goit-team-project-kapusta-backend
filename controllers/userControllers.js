@@ -12,9 +12,9 @@ const signUp = async (req, res, next) => {
     if (user) {
       return res.status(HttpCode.CONFLICT).json({ status: 'error', code: HttpCode.CONFLICT, message: 'Email in use' })
     }
-    const { id, name } = await Users.createUser(req.body)
+    const { id } = await Users.createUser(req.body)
 
-    return res.status(HttpCode.CREATED).json({ status: 'succes', code: HttpCode.CREATED, id, name })
+    return res.status(HttpCode.CREATED).json({ status: 'succes', code: HttpCode.CREATED, id })
   } catch (error) {
     next(error)
   }
@@ -29,13 +29,12 @@ const logIn = async (req, res, next) => {
       return res.status(HttpCode.UNAUTHORIZED)
         .json({ status: 'error', code: HttpCode.UNAUTHORIZED, message: 'Email or password is wrong' })
     }
-    const id = user.id
+    const { id, name, balance } = user
     const payload = { id }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
-    const balance = user.balance
     await Users.updateToken(id, token)
     const { email } = await req.body
-    sendSuccessRes(res, { email, balance, token }, HttpCode.OK)
+    sendSuccessRes(res, { email, name, balance, token }, HttpCode.OK)
   } catch (error) {
     next(error)
   }
