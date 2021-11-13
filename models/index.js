@@ -1,9 +1,10 @@
-const { User, userJoiSchema, updatebalanceJoiSchema } = require('./user')
+const { User, userJoiSchema, updatebalanceJoiSchema, userJoiSchemaLogin } = require('./user')
 const { Transaction } = require('./transaction')
 
 module.exports = {
   User,
   Transaction,
   userJoiSchema,
-  updatebalanceJoiSchema
+  updatebalanceJoiSchema,
+  userJoiSchemaLogin
 }
