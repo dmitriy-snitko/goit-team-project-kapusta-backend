@@ -8,9 +8,9 @@ const findUserByEmail = async (email) => {
   }
 }
 
-const createUser = async ({ _id, email, password }) => {
+const createUser = async ({ _id, name, email, password }) => {
   try {
-    const user = new User({ _id, email })
+    const user = new User({ _id, name, email })
     user.setPassword(password)
 
     return await user.save()
