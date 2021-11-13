@@ -13,7 +13,10 @@ const userSchema = Schema(
       required: [true, 'Email is required'],
       unique: true
     },
-
+    name: {
+      type: String,
+      required: true
+    },
     token: {
       type: String,
       default: null
@@ -31,14 +34,17 @@ const userSchema = Schema(
 
 const userJoiSchema = Joi.object({
   password: Joi.string().required(),
+  name: Joi.string().required(),
+  email: Joi.string().required()
+})
 
+const userJoiSchemaLogin = Joi.object({
+  password: Joi.string().required(),
   email: Joi.string().required()
 })
 
 const updatebalanceJoiSchema = Joi.object({
-
   balance: Joi.number().required()
-
 })
 
 userSchema.methods.setPassword = function (password) {
@@ -54,5 +60,6 @@ const User = model('user', userSchema)
 module.exports = {
   User,
   userJoiSchema,
-  updatebalanceJoiSchema
+  updatebalanceJoiSchema,
+  userJoiSchemaLogin
 }
