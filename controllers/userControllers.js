@@ -3,6 +3,7 @@ const HttpCode = require('../helpers/constants')
 const Users = require('../repositories')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = process.env.SECRET_KEY
+const { sendSuccessRes } = require('../helpers')
 
 const signUp = async (req, res, next) => {
   try {
@@ -11,9 +12,9 @@ const signUp = async (req, res, next) => {
     if (user) {
       return res.status(HttpCode.CONFLICT).json({ status: 'error', code: HttpCode.CONFLICT, message: 'Email in use' })
     }
-    const { id } = await Users.createUser(req.body)
+    const { id, name } = await Users.createUser(req.body)
 
-    return res.status(HttpCode.CREATED).json({ status: 'succes', code: HttpCode.CREATED, id })
+    return res.status(HttpCode.CREATED).json({ status: 'succes', code: HttpCode.CREATED, id, name })
   } catch (error) {
     next(error)
   }
@@ -31,9 +32,10 @@ const logIn = async (req, res, next) => {
     const id = user.id
     const payload = { id }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
+    const balance = user.balance
     await Users.updateToken(id, token)
     const { email } = await req.body
-    return res.status(HttpCode.OK).json({ status: 'succes', code: HttpCode.OK, email, token })
+    sendSuccessRes(res, { email, balance, token }, HttpCode.OK)
   } catch (error) {
     next(error)
   }
