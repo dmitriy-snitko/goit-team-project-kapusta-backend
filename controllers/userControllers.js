@@ -75,10 +75,35 @@ const getUserBalance = async (req, res, next) => {
   }
 }
 
+const getCurrent = async (req, res, next) => {
+  try {
+    const { authorization } = req.headers
+    if (!authorization) {
+      throw new Error('Not authorized')
+    }
+    const [bearer, token] = authorization.split(' ')
+    if (!token) {
+      throw new Error('Not authorized')
+    }
+    const { id } = jwt.verify(token, SECRET_KEY)
+
+    const user = await Users.findUserById(id)
+    const { email, name } = user
+    return res.status(HttpCode.OK).json({ status: 'succes', id, email, name })
+  } catch (error) {
+    res.status(401).json({
+      status: 'Error',
+      code: 401,
+      message: error.message
+    })
+  }
+}
+
 module.exports = {
   signUp,
   logIn,
   logout,
   userBalanceUpdate,
-  getUserBalance
+  getUserBalance,
+  getCurrent
 }

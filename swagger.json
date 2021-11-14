@@ -547,30 +547,25 @@
       "AuthorizationResponse": {
         "type": "object",
         "properties": {
-          "data": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email"
-              },
-              "name": {
-                "type": "string",
-                "description": "User's name",
-                "example": "Nikolay"
-              },
-              "balance": {
-                "type": "string",
-                "description": "User's balance",
-                "example": "55000"
-              },
-              "token": {
-                "type": "string",
-                "description": "User's token",
-                "example": "eynR5cCI6IkpXVCJ9.eyJpZCI6Ij1MiwiZX2NDA2NDUyfQ.nzoz39SSRn_oq20TJZNI"
-              }
-            }
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Nikolay"
+          },
+          "balance": {
+            "type": "string",
+            "description": "User's balance",
+            "example": "55000"
+          },
+          "token": {
+            "type": "string",
+            "description": "User's token",
+            "example": "eynR5cCI6IkpXVCJ9.eyJpZCI6Ij1MiwiZX2NDA2NDUyfQ.nzoz39SSRn_oq20TJZNI"
           }
         }
       },

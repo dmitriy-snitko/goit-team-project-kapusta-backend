@@ -11,4 +11,6 @@ router.post('/login', validation(userJoiSchemaLogin), controllers.logIn)
 router.post('/logout', guard, controllers.logout)
 router.post('/', guard, validation(updatebalanceJoiSchema), controllers.userBalanceUpdate)
 router.get('/', guard, controllers.getUserBalance)
+router.get('/current', controllers.getCurrent)
+
 module.exports = router
