@@ -2,8 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const {
-  transactionJoiSchema,
-  transactionByMonthJoiSchema
+  transactionJoiSchema
 } = require('../../models/transaction')
 const { validation, ctrlWrap } = require('../../middlewares')
 
@@ -34,16 +33,15 @@ router.get('/incomings', guard, ctrlWrap(controllers.incomingsSummaryForYear))
 router.get('/outgoings', guard, ctrlWrap(controllers.outgoingsSummaryForYear))
 
 router.get(
-  '/incomings/month',
+  '/incomings/date',
   guard,
-  validation(transactionByMonthJoiSchema),
-  controllers.getIncomingsByMonth
+  ctrlWrap(controllers.getAllIncomingsByPeriod)
 )
+
 router.get(
-  '/outgoings/month',
+  '/outgoings/date',
   guard,
-  validation(transactionByMonthJoiSchema),
-  controllers.getOutgoingsByMonth
+  ctrlWrap(controllers.getAllOutgoingsByPeriod)
 )
 
 module.exports = router
