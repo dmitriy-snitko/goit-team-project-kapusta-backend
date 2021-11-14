@@ -88,8 +88,8 @@ const getCurrent = async (req, res, next) => {
     const { id } = jwt.verify(token, SECRET_KEY)
 
     const user = await Users.findUserById(id)
-    const { email, name } = user
-    sendSuccessRes(res, { id, email, name }, 200)
+    const { email, name, balance } = user
+    sendSuccessRes(res, { id, email, name, balance }, 200)
   } catch (error) {
     res.status(401).json({
       status: 'Error',
