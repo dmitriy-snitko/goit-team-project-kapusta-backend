@@ -34,7 +34,8 @@ const logIn = async (req, res, next) => {
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
     await Users.updateToken(id, token)
     const { email } = await req.body
-    sendSuccessRes(res, { email, name, balance, token }, HttpCode.OK)
+    return res.status(HttpCode.OK).json({ status: 'succes', code: HttpCode.OK, id, email, name, balance, token })
+    // sendSuccessRes(res, { email, name, balance, token }, HttpCode.OK)
   } catch (error) {
     next(error)
   }
