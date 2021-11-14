@@ -89,7 +89,7 @@ const getCurrent = async (req, res, next) => {
 
     const user = await Users.findUserById(id)
     const { email, name } = user
-    return res.status(HttpCode.OK).json({ status: 'succes', id, email, name })
+    sendSuccessRes(res, { id, email, name }, 200)
   } catch (error) {
     res.status(401).json({
       status: 'Error',
