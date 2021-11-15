@@ -119,6 +119,30 @@
         }
       }
     },
+    "/api/users/current": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get current User",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCurrentUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not authorized",
+            "content": {}
+          }
+        }
+      }
+    },
     "/api/users/": {
       "post": {
         "tags": ["Users"],
@@ -357,7 +381,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetTransactionResponse"
+                  "$ref": "#/components/schemas/GetIncomeTransactionResponse"
                 }
               }
             }
@@ -555,7 +579,7 @@
           "name": {
             "type": "string",
             "description": "User's name",
-            "example": "Nikolay"
+            "example": "User"
           },
           "balance": {
             "type": "string",
@@ -1018,6 +1042,91 @@
                 "type": "string",
                 "description": "Transaction`s date (year)",
                 "example": "2021"
+              }
+            }
+          }
+        }
+      },
+      "GetIncomeTransactionResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Transaction`s id",
+                "example": "618945b63e83a1052b6b5554"
+              },
+              "typeOftransactions": {
+                "type": "boolean",
+                "description": "Transaction`s type",
+                "example": "true"
+              },
+              "amount": {
+                "type": "integer",
+                "description": "Transaction`s amount",
+                "example": "10000"
+              },
+              "description": {
+                "type": "string",
+                "description": "Transaction`s description",
+                "example": "Apple"
+              },
+              "category": {
+                "type": "string",
+                "description": "Transaction`s category",
+                "example": "Food"
+              },
+              "owner": {
+                "type": "string",
+                "description": "User`s id",
+                "example": "61885ae703bc9278eb40fcc9"
+              },
+              "day": {
+                "type": "string",
+                "description": "Transaction`s date (day)",
+                "example": "8"
+              },
+              "month": {
+                "type": "string",
+                "description": "Transaction`s date (month)",
+                "example": "11"
+              },
+              "year": {
+                "type": "string",
+                "description": "Transaction`s date (year)",
+                "example": "2021"
+              }
+            }
+          }
+        }
+      },
+      "GetCurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "User's`s id",
+                "example": "618945b63e83a1052b6b5554"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "User"
+              },
+              "balance": {
+                "type": "string",
+                "description": "User's balance",
+                "example": "55000"
               }
             }
           }
