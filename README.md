@@ -1,1 +1,0 @@
-# goit-team-project-kapusta-backend
