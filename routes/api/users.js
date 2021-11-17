@@ -12,5 +12,7 @@ router.post('/logout', guard, controllers.logout)
 router.post('/', guard, validation(updatebalanceJoiSchema), controllers.userBalanceUpdate)
 router.get('/', guard, controllers.getUserBalance)
 router.get('/current', controllers.getCurrent)
+router.get('/google', ctrlWrap(controllers.googleAuth))
+router.get('/google-redirect', ctrlWrap(controllers.googleRedirect))
 
 module.exports = router

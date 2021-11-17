@@ -1,4 +1,4 @@
-const { signUp, logIn, logout, userBalanceUpdate, getUserBalance, getCurrent } = require('./userControllers')
+const { signUp, logIn, logout, userBalanceUpdate, getUserBalance, getCurrent, googleAuth, googleRedirect } = require('./userControllers')
 
 module.exports = {
   signUp,
@@ -6,5 +6,7 @@ module.exports = {
   logout,
   userBalanceUpdate,
   getUserBalance,
-  getCurrent
+  getCurrent,
+  googleAuth,
+  googleRedirect
 }
