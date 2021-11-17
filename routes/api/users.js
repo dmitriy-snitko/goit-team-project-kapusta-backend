@@ -4,11 +4,19 @@ const controllers = require('../../controllers/index')
 // const ctrl = require('../../controllers/transactions/index')
 const guard = require('../../helpers/guard')
 const { userJoiSchema, updatebalanceJoiSchema } = require('../../models')
-const { validation } = require('../../middlewares')
+const { validation, ctrlWrap } = require('../../middlewares')
 
 router.post('/signup', validation(userJoiSchema), controllers.signUp)
 router.post('/login', validation(userJoiSchema), controllers.logIn)
 router.post('/logout', guard, controllers.logout)
-router.post('/', guard, validation(updatebalanceJoiSchema), controllers.userBalanceUpdate)
+router.post(
+  '/',
+  guard,
+  validation(updatebalanceJoiSchema),
+  controllers.userBalanceUpdate,
+)
 router.get('/', guard, controllers.getUserBalance)
+router.get('/google', ctrlWrap(controllers.googleAuth))
+router.get('/google-redirect', ctrlWrap(controllers.googleRedirect))
+
 module.exports = router
