@@ -99,11 +99,74 @@ const getCurrent = async (req, res, next) => {
   }
 }
 
+const googleAuth = async (req, res) => {
+  const stringifiedParams = queryString.stringify({
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ].join(' '),
+    response_type: 'code',
+    access_type: 'offline',
+    prompt: 'consent',
+  })
+
+  return res.redirect(
+    `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`,
+  )
+}
+
+const googleRedirect = async (req, res) => {
+  const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`
+  const urlObj = new URL(fullUrl)
+  const urlParams = queryString.parse(urlObj.search)
+  const code = urlParams.code
+  const tokenData = await axios({
+    url: 'https://oauth2.googleapis.com/token',
+    method: 'post',
+    data: {
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
+      redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
+      grant_type: 'authorization_code',
+      code,
+    },
+  })
+  const userData = await axios({
+    url: 'https://www.googleapis.com/oauth2/v2/userinfo',
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${tokenData.data.access_token}`,
+    },
+  })
+  const email = userData.data.email
+  const user = await Users.findUserByEmail(email)
+  if (!user) {
+    throw new Unauthorized(`User with ${email} not exist`)
+  }
+  const { _id } = user
+  const payload = {
+    _id,
+  }
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
+  await Users.updateToken(_id, token)
+  console.log(user)
+  console.log(token)
+  console.log(user.name)
+
+  return res.redirect(
+    `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${user.email}&balance=${user.balance}&name=${user.name}`,
+  )
+}
+
 module.exports = {
   signUp,
   logIn,
   logout,
   userBalanceUpdate,
   getUserBalance,
-  getCurrent
+  getCurrent,
+  googleAuth,
+  googleRedirect
 }
