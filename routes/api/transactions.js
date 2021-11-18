@@ -44,4 +44,6 @@ router.get(
   ctrlWrap(controllers.getAllOutgoingsByPeriod)
 )
 
+router.get('/forReports', guard, ctrlWrap(controllers.getInfoForReports))
+
 module.exports = router

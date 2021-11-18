@@ -9,7 +9,7 @@ const getOutgoingsByMonth = async (req, res, next) => {
     owner: id,
     month,
     year,
-    typeOftransactions: false,
+    typeOftransactions: false
   }).sort({ amount: -1 })
 
   const total = totalAmount(outgoingsByMonth)
