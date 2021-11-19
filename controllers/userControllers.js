@@ -157,7 +157,7 @@ const googleRedirect = async (req, res) => {
   console.log(user)
 
   return res.redirect(
-    `https://cabbage-project.netlify.app/google-redirect/?email=${email}&name=${given_name}&balance=${user.balance}&token=${token}`,
+    `http://localhost:3000/google-redirect/?email=${email}&name=${given_name}&balance=${user.balance}&token=${token}`,
   )
 }
 
