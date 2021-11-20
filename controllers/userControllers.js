@@ -1,10 +1,11 @@
-const { Unauthorized } = require('http-errors')
 require('dotenv').config()
 const HttpCode = require('../helpers/constants')
 const Users = require('../repositories')
 const jwt = require('jsonwebtoken')
 const queryString = require('query-string')
 const axios = require('axios')
+const bcrypt = require('bcryptjs')
+const { nanoid } = require('nanoid')
 const SECRET_KEY = process.env.SECRET_KEY
 const { sendSuccessRes } = require('../helpers')
 
@@ -163,20 +164,36 @@ const googleRedirect = async (req, res) => {
     },
   })
   const email = userData.data.email
-  const user = await Users.findUserByEmail(email, 'id email balance name token')
+  const name = userData.data.given_name
+  const user = await Users.findUserByEmail(email)
   if (!user) {
-    throw new Unauthorized(`User with ${email} not exist`)
+    const password = nanoid()
+    const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    const newUser = {
+      email,
+      name,
+      password: hashPassword,
+    }
+    const user = await Users.createUser(newUser)
+    const { id } = user
+    const payload = {
+      id,
+    }
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
+    await Users.updateToken(id, token)
+    return res.redirect(
+      `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
+        user.email
+      }&balance=${user.balance}&name=${Object.values(user)[2].name}`,
+    )
   }
+
   const { id } = user
   const payload = {
     id,
   }
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
   await Users.updateToken(id, token)
-  // console.log(user)
-  // console.log(token)
-  // console.log(Object.values(user)[2].name)
-  // console.log(user.name)
 
   return res.redirect(
     `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
