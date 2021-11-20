@@ -154,10 +154,8 @@ const googleRedirect = async (req, res) => {
   const token = jwt.sign({ payload: user.id }, SECRET_KEY, { expiresIn: '1d' })
   await Users.updateToken(user.id, token)
 
-  console.log(user)
-
   return res.redirect(
-    `http://localhost:3000/google-redirect/?email=${email}&name=${given_name}&balance=${user.balance}&token=${token}`,
+    `https://cabbage-project.netlify.app//google-redirect/?email=${email}&name=${given_name}&balance=${user.balance}&token=${token}`,
   )
 }
 
