@@ -187,7 +187,6 @@ const googleRedirect = async (req, res) => {
       }&balance=${user.balance}&name=${Object.values(user)[2].name}`,
     )
   }
-
   const { id } = user
   const payload = {
     id,
