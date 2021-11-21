@@ -1,3 +1,4 @@
+
 const {
   signUp,
   logIn,
@@ -18,4 +19,5 @@ module.exports = {
   getCurrent,
   googleAuth,
   googleRedirect,
+  getInfoForReports
 }
