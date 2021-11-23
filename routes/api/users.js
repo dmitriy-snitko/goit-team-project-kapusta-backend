@@ -20,7 +20,7 @@ router.post(
   controllers.userBalanceUpdate,
 )
 router.get('/', guard, controllers.getUserBalance)
-router.get('/current', controllers.getCurrent)
+router.get('/current', guard, controllers.getCurrent)
 router.get('/google', ctrlWrap(controllers.googleAuth))
 router.get('/google-redirect', ctrlWrap(controllers.googleRedirect))
 
