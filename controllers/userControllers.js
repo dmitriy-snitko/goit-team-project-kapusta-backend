@@ -104,7 +104,7 @@ const getCurrent = async (req, res, next) => {
 const googleAuth = async (req, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri: `${process.env.BASE_URL}/users/google-redirect`,
+    redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
@@ -130,12 +130,11 @@ const googleRedirect = async (req, res) => {
     data: {
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: `${process.env.BASE_URL}/users/google-redirect`,
+      redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
       grant_type: 'authorization_code',
       code,
     },
   })
-
   const userData = await axios({
     url: 'https://www.googleapis.com/oauth2/v2/userinfo',
     method: 'get',
@@ -143,19 +142,41 @@ const googleRedirect = async (req, res) => {
       Authorization: `Bearer ${tokenData.data.access_token}`,
     },
   })
-
-  const { id, email, given_name } = userData.data
-  let user = await Users.findUserByEmail(email)
-
+  const email = userData.data.email
+  const name = userData.data.given_name
+  const user = await Users.findUserByEmail(email)
   if (!user) {
-   user = await Users.createUser({ email, password: id, name: given_name})
+    const password = nanoid()
+    const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    const newUser = {
+      email,
+      name,
+      password: hashPassword,
+    }
+    const user = await Users.createUser(newUser)
+    const { id } = user
+    const payload = {
+      id,
+    }
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
+    await Users.updateToken(id, token)
+    return res.redirect(
+      `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
+        user.email
+      }&balance=${user.balance}&name=${Object.values(user)[2].name}`,
+    )
   }
-
-  const token = jwt.sign({ payload: user.id }, SECRET_KEY, { expiresIn: '1d' })
-  await Users.updateToken(user.id, token)
+  const { id } = user
+  const payload = {
+    id,
+  }
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
+  await Users.updateToken(id, token)
 
   return res.redirect(
-    `https://cabbage-project.netlify.app/google-redirect/?email=${email}&name=${given_name}&balance=${user.balance}&token=${token}`,
+    `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
+      user.email
+    }&balance=${user.balance}&name=${Object.values(user)[2].name}`,
   )
 }
 
@@ -166,7 +187,76 @@ module.exports = {
   userBalanceUpdate,
   getUserBalance,
   getCurrent,
+  googleAuth,
   googleRedirect,
-  googleAuth
-
 }
+
+// const googleAuth = async (req, res) => {
+//   const stringifiedParams = queryString.stringify({
+//     client_id: process.env.GOOGLE_CLIENT_ID,
+//     redirect_uri: `${process.env.BASE_URL}/users/google-redirect`,
+//     scope: [
+//       'https://www.googleapis.com/auth/userinfo.email',
+//       'https://www.googleapis.com/auth/userinfo.profile',
+//     ].join(' '),
+//     response_type: 'code',
+//     access_type: 'offline',
+//     prompt: 'consent',
+//   })
+
+//   return res.redirect(
+//     `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`,
+//   )
+// }
+
+// const googleRedirect = async (req, res) => {
+//   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`
+//   const urlObj = new URL(fullUrl)
+//   const urlParams = queryString.parse(urlObj.search)
+//   const code = urlParams.code
+//   const tokenData = await axios({
+//     url: 'https://oauth2.googleapis.com/token',
+//     method: 'post',
+//     data: {
+//       client_id: process.env.GOOGLE_CLIENT_ID,
+//       client_secret: process.env.GOOGLE_CLIENT_SECRET,
+//       redirect_uri: `${process.env.BASE_URL}/users/google-redirect`,
+//       grant_type: 'authorization_code',
+//       code,
+//     },
+//   })
+
+//   const userData = await axios({
+//     url: 'https://www.googleapis.com/oauth2/v2/userinfo',
+//     method: 'get',
+//     headers: {
+//       Authorization: `Bearer ${tokenData.data.access_token}`,
+//     },
+//   })
+
+//   const { id, email, given_name } = userData.data
+//   let user = await Users.findUserByEmail(email)
+
+//   if (!user) {
+//    user = await Users.createUser({ email, password: id, name: given_name})
+//   }
+
+//   const token = jwt.sign({ payload: user.id }, SECRET_KEY, { expiresIn: '1d' })
+//   await Users.updateToken(user.id, token)
+
+//   return res.redirect(
+//     `https://cabbage-project.netlify.app/google-redirect/?email=${email}&name=${given_name}&balance=${user.balance}&token=${token}`,
+//   )
+// }
+
+// module.exports = {
+//   signUp,
+//   logIn,
+//   logout,
+//   userBalanceUpdate,
+//   getUserBalance,
+//   getCurrent,
+//   googleRedirect,
+//   googleAuth
+
+// }
