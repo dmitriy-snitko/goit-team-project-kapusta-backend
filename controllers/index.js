@@ -1,4 +1,3 @@
-
 const {
   signUp,
   logIn,
@@ -7,8 +6,9 @@ const {
   getUserBalance,
   getCurrent,
   googleAuth,
-  googleRedirect,
-} = require('./userControllers')
+  googleRedirect } = require('./userControllers')
+
+const { getInfoForReports } = require('./transactions')
 
 module.exports = {
   signUp,
@@ -17,7 +17,7 @@ module.exports = {
   userBalanceUpdate,
   getUserBalance,
   getCurrent,
+  getInfoForReports,
   googleAuth,
-  googleRedirect,
-  getInfoForReports
+  googleRedirect
 }
