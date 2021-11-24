@@ -1,4 +1,12 @@
-const { signUp, logIn, logout, userBalanceUpdate, getUserBalance, getCurrent, googleAuth ,googleRedirect } = require('./userControllers')
+const {
+  signUp,
+  logIn,
+  logout,
+  userBalanceUpdate,
+  getUserBalance,
+  getCurrent,
+  googleAuth,
+  googleRedirect } = require('./userControllers')
 
 const { getInfoForReports } = require('./transactions')
 
