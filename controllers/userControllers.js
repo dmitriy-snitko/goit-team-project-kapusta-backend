@@ -143,30 +143,26 @@ const googleRedirect = async (req, res) => {
   })
 
   const { id, email, given_name: name } = userData.data
-  const user = await Users.findUserByEmail(email)
+  let user = await Users.findUserByEmail(email)
+
   if (!user) {
     const newUser = {
       email,
       name,
       password: id
     }
-    const user = await Users.createUser(newUser)
-    const token = user.createToken()
-    await Users.updateToken(user.id, token)
-
-    return res.redirect(
-      `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
-        user.email
-      }&balance=${user.balance}&name=${user.name}`
-    )
+    user = await Users.createUser(newUser)
   }
+
   const token = user.createToken()
   await Users.updateToken(user.id, token)
 
   return res.redirect(
-    `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
-      user.email
-    }&balance=${user.balance}&name=${user.name}`
+    `${process.env.HOME_URL}/google-redirect/?` +
+    `token=${token}&` +
+    `email=${user.email}&` +
+    `balance=${user.balance}&` +
+    `name=${user.name}`
   )
 }
 
