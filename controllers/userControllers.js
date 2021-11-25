@@ -7,6 +7,7 @@ const { sendSuccessRes } = require('../helpers')
 const queryString = require('query-string')
 const axios = require('axios')
 const { nanoid } = require('nanoid')
+// const { bcrypt } = require('bcrypt')
 
 const signUp = async (req, res, next) => {
   try {
