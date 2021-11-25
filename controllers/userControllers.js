@@ -6,6 +6,7 @@ const SECRET_KEY = process.env.SECRET_KEY
 const { sendSuccessRes } = require('../helpers')
 const queryString = require('query-string')
 const axios = require('axios')
+const nanoid = require('nanoid')
 
 const signUp = async (req, res, next) => {
   try {
