@@ -148,11 +148,11 @@ const googleRedirect = async (req, res) => {
   const user = await Users.findUserByEmail(email)
   if (!user) {
     const password = nanoid()
-    const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    // const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
     const newUser = {
       email,
       name,
-      password: hashPassword,
+      password: password,
     }
     const user = await Users.createUser(newUser)
     const { id } = user
