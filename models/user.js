@@ -8,45 +8,50 @@ const userSchema = Schema(
   {
     password: {
       type: String,
-      required: [true, 'Password is required']
+      required: [true, 'Password is required'],
     },
     email: {
       type: String,
       required: [true, 'Email is required'],
-      unique: true
+      unique: true,
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     token: {
       type: String,
-      default: null
+      default: null,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
     },
     verifyToken: {
-      type: String
+      type: String,
+      required: [true, 'Verify token is required'],
     },
     balance: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false, timestamps: true },
 )
 
 const userJoiSchema = Joi.object({
   password: Joi.string().required(),
   name: Joi.string().required(),
-  email: Joi.string().required()
+  email: Joi.string().required(),
 })
 
 const userJoiSchemaLogin = Joi.object({
   password: Joi.string().required(),
-  email: Joi.string().required()
+  email: Joi.string().required(),
 })
 
 const updatebalanceJoiSchema = Joi.object({
-  balance: Joi.number().required()
+  balance: Joi.number().required(),
 })
 
 userSchema.methods.setPassword = function (password) {
@@ -59,7 +64,7 @@ userSchema.methods.isValidPassword = async function (password) {
 
 userSchema.methods.createToken = function () {
   const payload = {
-    id: this.id
+    id: this.id,
   }
 
   return jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
@@ -70,5 +75,5 @@ module.exports = {
   User,
   userJoiSchema,
   updatebalanceJoiSchema,
-  userJoiSchemaLogin
+  userJoiSchemaLogin,
 }
