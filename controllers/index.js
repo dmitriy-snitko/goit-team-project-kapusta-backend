@@ -1,9 +1,21 @@
-const { signUp, logIn, logout, userBalanceUpdate, getUserBalance, getCurrent, googleAuth ,googleRedirect } = require('./userControllers')
+const {
+  signUp,
+  logIn,
+  logout,
+  userBalanceUpdate,
+  getUserBalance,
+  getCurrent,
+  googleAuth,
+  googleRedirect,
+} = require('./userControllers')
+const verify = require('./verify')
+const verifyToken = require('./verifyToken')
 
 const { getInfoForReports } = require('./transactions')
 
 module.exports = {
   signUp,
+  verify,
   logIn,
   logout,
   userBalanceUpdate,
@@ -11,5 +23,6 @@ module.exports = {
   getCurrent,
   getInfoForReports,
   googleAuth,
-  googleRedirect
+  googleRedirect,
+  verifyToken,
 }
