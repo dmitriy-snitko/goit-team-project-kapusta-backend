@@ -1,6 +1,8 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const Joi = require('joi')
+const jwt = require('jsonwebtoken')
+const { SECRET_KEY } = process.env
 
 const userSchema = Schema(
   {
@@ -55,6 +57,13 @@ userSchema.methods.isValidPassword = async function (password) {
   return await bcrypt.compare(password, this.password)
 }
 
+userSchema.methods.createToken = function () {
+  const payload = {
+    id: this.id
+  }
+
+  return jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
+}
 const User = model('user', userSchema)
 
 module.exports = {
