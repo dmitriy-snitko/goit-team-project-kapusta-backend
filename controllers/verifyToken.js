@@ -14,9 +14,6 @@ const verifyToken = async (req, res) => {
     { verifyToken },
     { verifyToken: null, verify: true, token },
   )
-  console.log(user.name)
-  console.log(user.balance)
-  console.log(user.email)
 
   res.redirect(
     `${process.env.HOME_URL}/google-redirect/?` +
@@ -25,12 +22,6 @@ const verifyToken = async (req, res) => {
       `balance=${user.balance}&` +
       `name=${user.name}`,
   )
-
-  // res.json({
-  //   status: 'success',
-  //   code: 200,
-  //   message: 'Verification successful',
-  // })
 }
 
 module.exports = verifyToken
