@@ -20,7 +20,7 @@ app.use(logger(formatsLogger))
 app.use(cors())
 app.use(express.json())
 app.use(express.json({ limit: 10000 })) // обмеження об'єму
-// app.use(boolParser()) // обов'зково після express.json
+app.use(boolParser()) // обов'зково після express.json
 
 app.use('/api/', rateLimit(limiterApi))
 app.use('/api/users', usersRouter)
