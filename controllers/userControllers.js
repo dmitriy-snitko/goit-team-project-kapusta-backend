@@ -6,8 +6,6 @@ const SECRET_KEY = process.env.SECRET_KEY
 const { sendSuccessRes } = require('../helpers')
 const queryString = require('query-string')
 const axios = require('axios')
-const { nanoid } = require('nanoid')
-// const { bcrypt } = require('bcrypt')
 
 const signUp = async (req, res, next) => {
   try {
@@ -69,7 +67,6 @@ const userBalanceUpdate = async (req, res, next) => {
 
 const getUserBalance = async (req, res, next) => {
   try {
-    // const { balance } = req.body
     const id = res.locals.user.id
     await Users.findUserById(id)
     const userbalance = await Users.getBalance(id)
@@ -109,15 +106,15 @@ const googleAuth = async (req, res) => {
     redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.profile'
     ].join(' '),
     response_type: 'code',
     access_type: 'offline',
-    prompt: 'consent',
+    prompt: 'consent'
   })
 
   return res.redirect(
-    `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`,
+    `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
   )
 }
 
@@ -134,51 +131,38 @@ const googleRedirect = async (req, res) => {
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
       grant_type: 'authorization_code',
-      code,
-    },
+      code
+    }
   })
   const userData = await axios({
     url: 'https://www.googleapis.com/oauth2/v2/userinfo',
     method: 'get',
     headers: {
-      Authorization: `Bearer ${tokenData.data.access_token}`,
-    },
+      Authorization: `Bearer ${tokenData.data.access_token}`
+    }
   })
-  const email = userData.data.email
-  const name = userData.data.given_name
-  const user = await Users.findUserByEmail(email)
+
+  const { id, email, given_name: name } = userData.data
+  let user = await Users.findUserByEmail(email)
+
   if (!user) {
-    const password = nanoid()
-    // const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
     const newUser = {
       email,
       name,
-      password: password,
+      password: id
     }
-    const user = await Users.createUser(newUser)
-    const { id } = user
-    const payload = {
-      id,
-    }
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
-    await Users.updateToken(id, token)
-    return res.redirect(
-      `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
-        user.email
-      }&balance=${user.balance}&name=${Object.values(user)[2].name}`,
-    )
+    user = await Users.createUser(newUser)
   }
-  const { id } = user
-  const payload = {
-    id,
-  }
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
-  await Users.updateToken(id, token)
+
+  const token = user.createToken()
+  await Users.updateToken(user.id, token)
 
   return res.redirect(
-    `${process.env.HOME_URL}/google-redirect/?token=${token}&email=${
-      user.email
-    }&balance=${user.balance}&name=${Object.values(user)[2].name}`,
+    `${process.env.HOME_URL}/google-redirect/?` +
+    `token=${token}&` +
+    `email=${user.email}&` +
+    `balance=${user.balance}&` +
+    `name=${user.name}`
   )
 }
 
@@ -190,5 +174,5 @@ module.exports = {
   getUserBalance,
   getCurrent,
   googleAuth,
-  googleRedirect,
+  googleRedirect
 }
