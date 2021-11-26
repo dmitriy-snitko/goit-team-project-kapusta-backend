@@ -1,5 +1,5 @@
 require('dotenv').config()
-const HttpCode = require('../helpers/constants')
+const { HttpCode } = require('../helpers/constants')
 const Users = require('../repositories')
 const jwt = require('jsonwebtoken')
 const SECRET_KEY = process.env.SECRET_KEY
