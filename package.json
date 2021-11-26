@@ -17,6 +17,9 @@
     "cross-env": "7.0.3",
     "dotenv": "^10.0.0",
     "express": "4.17.1",
+    "express-query-boolean": "^2.0.0",
+    "express-rate-limit": "^5.5.1",
+    "helmet": "^4.6.0",
     "http-errors": "^1.8.0",
     "jimp": "^0.16.1",
     "joi": "^17.4.2",
@@ -39,5 +42,21 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
     "nodemon": "2.0.7"
-  }
+  },
+  "description": "",
+  "main": ".eslintrc.js",
+  "bin": {
+    "template": "server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmitriy-snitko/goit-team-project-kapusta-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmitriy-snitko/goit-team-project-kapusta-backend/issues"
+  },
+  "homepage": "https://github.com/dmitriy-snitko/goit-team-project-kapusta-backend#readme"
 }
