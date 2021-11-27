@@ -16,7 +16,7 @@ const signUp = async (req, res, next) => {
       return res.status(HttpCode.CONFLICT).json({
         status: 'error',
         code: HttpCode.CONFLICT,
-        message: 'Email in use',
+        message: 'Email in use'
       })
     }
 
@@ -39,7 +39,7 @@ const logIn = async (req, res, next) => {
       return res.status(HttpCode.UNAUTHORIZED).json({
         status: 'error',
         code: HttpCode.UNAUTHORIZED,
-        message: 'Email or password is wrong',
+        message: 'Email or password is wrong'
       })
     }
     if (!user.verify) {
@@ -57,7 +57,7 @@ const logIn = async (req, res, next) => {
       email,
       name,
       balance,
-      token,
+      token
     })
   } catch (error) {
     next(error)
@@ -118,7 +118,7 @@ const getCurrent = async (req, res, next) => {
     res.status(401).json({
       status: 'Error',
       code: 401,
-      message: error.message,
+      message: error.message
     })
   }
 }
@@ -129,15 +129,15 @@ const googleAuth = async (req, res) => {
     redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.profile'
     ].join(' '),
     response_type: 'code',
     access_type: 'offline',
-    prompt: 'consent',
+    prompt: 'consent'
   })
 
   return res.redirect(
-    `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`,
+    `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
   )
 }
 
@@ -154,15 +154,15 @@ const googleRedirect = async (req, res) => {
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: `${process.env.BASE_URL}/api/users/google-redirect`,
       grant_type: 'authorization_code',
-      code,
-    },
+      code
+    }
   })
   const userData = await axios({
     url: 'https://www.googleapis.com/oauth2/v2/userinfo',
     method: 'get',
     headers: {
-      Authorization: `Bearer ${tokenData.data.access_token}`,
-    },
+      Authorization: `Bearer ${tokenData.data.access_token}`
+    }
   })
 
   const { id, email, given_name: name } = userData.data
@@ -172,7 +172,7 @@ const googleRedirect = async (req, res) => {
     const newUser = {
       email,
       name,
-      password: id,
+      password: id
     }
     user = await Users.createGoogleUser(newUser)
   }
@@ -185,7 +185,7 @@ const googleRedirect = async (req, res) => {
       `token=${token}&` +
       `email=${user.email}&` +
       `balance=${user.balance}&` +
-      `name=${user.name}`,
+      `name=${user.name}`
   )
 }
 
@@ -197,5 +197,5 @@ module.exports = {
   getUserBalance,
   getCurrent,
   googleAuth,
-  googleRedirect,
+  googleRedirect
 }

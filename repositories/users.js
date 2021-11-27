@@ -10,10 +10,10 @@ const findUserByEmail = async (email) => {
   }
 }
 
-const createUser = async ({ _id, name, email, password }) => {
+const createUser = async ({ name, email, password }) => {
   try {
     const verifyToken = nanoid()
-    const user = new User({ _id, name, email, verifyToken })
+    const user = new User({ name, email, verifyToken })
     user.setPassword(password)
 
     await user.save()
@@ -31,11 +31,10 @@ const createUser = async ({ _id, name, email, password }) => {
   }
 }
 
-const createGoogleUser = async ({ _id, name, email }) => {
+const createGoogleUser = async ({ name, email, password }) => {
   try {
-    const pass = nanoid()
-    const user = new User({ _id, name, email, verifyToken: pass, verify: true })
-    user.setPassword(pass)
+    const user = new User({ name, email, verify: true })
+    user.setPassword(password)
 
     return await user.save()
   } catch (error) {
