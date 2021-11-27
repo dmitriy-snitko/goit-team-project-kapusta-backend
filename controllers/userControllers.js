@@ -59,7 +59,6 @@ const logIn = async (req, res, next) => {
       balance,
       token,
     })
-    // sendSuccessRes(res, { email, name, balance, token }, HttpCode.OK)
   } catch (error) {
     next(error)
   }

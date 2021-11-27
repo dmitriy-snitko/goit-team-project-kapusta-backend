@@ -9,18 +9,11 @@ const verifyToken = async (req, res) => {
   if (!user) {
     throw new NotFound('User not found')
   }
-  const token = user.createToken()
   await User.findOneAndUpdate(
     { verifyToken },
-    { verifyToken: null, verify: true, token },
+    { verifyToken: null, verify: true }
   )
-  res.redirect(
-    `${process.env.HOME_URL}/google-redirect/?` +
-      `token=${token}&` +
-      `email=${user.email}&` +
-      `balance=${user.balance}&` +
-      `name=${user.name}`,
-  )
+  res.redirect(process.env.HOME_URL)
 }
 
 module.exports = verifyToken
