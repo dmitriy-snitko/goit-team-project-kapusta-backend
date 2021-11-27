@@ -1,4 +1,12 @@
-const { findUserByEmail, createUser, updateToken, findUserById, updateBalance, getBalance } = require('./users')
+const {
+  findUserByEmail,
+  createUser,
+  updateToken,
+  findUserById,
+  updateBalance,
+  getBalance,
+  createGoogleUser,
+} = require('./users')
 
 module.exports = {
   findUserByEmail,
@@ -6,5 +14,6 @@ module.exports = {
   updateToken,
   findUserById,
   updateBalance,
-  getBalance
+  getBalance,
+  createGoogleUser,
 }

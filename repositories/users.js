@@ -1,4 +1,6 @@
 const { User } = require('../models')
+const { nanoid } = require('nanoid')
+const { sendEmail } = require('../helpers')
 
 const findUserByEmail = async (email) => {
   try {
@@ -10,8 +12,30 @@ const findUserByEmail = async (email) => {
 
 const createUser = async ({ _id, name, email, password }) => {
   try {
-    const user = new User({ _id, name, email })
+    const verifyToken = nanoid()
+    const user = new User({ _id, name, email, verifyToken })
     user.setPassword(password)
+
+    await user.save()
+    const data = {
+      to: email,
+      subject: 'Please confirm your email',
+      html: `
+  <a href="${process.env.BASE_URL}/api/users/verify/${verifyToken}">Confirm your email</a>
+  `,
+    }
+
+    return await sendEmail(data)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+const createGoogleUser = async ({ _id, name, email }) => {
+  try {
+    const pass = nanoid()
+    const user = new User({ _id, name, email, verifyToken: pass, verify: true })
+    user.setPassword(pass)
 
     return await user.save()
   } catch (error) {
@@ -57,5 +81,6 @@ module.exports = {
   updateToken,
   findUserById,
   updateBalance,
-  getBalance
+  getBalance,
+  createGoogleUser,
 }
