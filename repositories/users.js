@@ -26,7 +26,7 @@ const createUser = async ({ _id, name, email, password }) => {
     }
 
     await sendEmail(data)
-    return
+    return user
   } catch (error) {
     console.log(error.message)
   }

@@ -14,7 +14,6 @@ const verifyToken = async (req, res) => {
     { verifyToken },
     { verifyToken: null, verify: true, token },
   )
-
   res.redirect(
     `${process.env.HOME_URL}/google-redirect/?` +
       `token=${token}&` +
