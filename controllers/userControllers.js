@@ -41,9 +41,9 @@ const logIn = async (req, res, next) => {
         message: 'Email or password is wrong',
       })
     }
-    if (!user.verify) {
-      throw new Unauthorized('Email not verify')
-    }
+    // if (!user.verify) {
+    //   throw new Unauthorized('Email not verify')
+    // }
     const { id, name, balance } = user
     const payload = { id }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1d' })
