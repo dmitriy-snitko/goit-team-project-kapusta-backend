@@ -19,11 +19,12 @@ const signUp = async (req, res, next) => {
         message: 'Email in use',
       })
     }
-    const { id } = await Users.createUser(req.body)
+
+    await Users.createUser(req.body)
 
     return res
       .status(HttpCode.CREATED)
-      .json({ status: 'succes', code: HttpCode.CREATED, id })
+      .json({ status: 'succes', code: HttpCode.CREATED })
   } catch (error) {
     next(error)
   }
