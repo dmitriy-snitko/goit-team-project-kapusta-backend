@@ -6,7 +6,7 @@ const swaggerDocument = require('./swagger.json')
 const helmet = require('helmet')
 const boolParser = require('express-query-boolean')
 const rateLimit = require('express-rate-limit')
-const { limiterApi } = require('./helpers/constants')
+const { limiterApi } = require('./helpers')
 
 const app = express()
 

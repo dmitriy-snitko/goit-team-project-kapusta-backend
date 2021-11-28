@@ -1,6 +1,5 @@
 const { NotFound } = require('http-errors')
-
-const { User } = require('../models')
+const { User } = require('../../models')
 
 const verifyToken = async (req, res) => {
   const { verifyToken } = req.params

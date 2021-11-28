@@ -1,8 +1,6 @@
 const { BadRequest, Unauthorized } = require('http-errors')
-
-const { User } = require('../models')
-
-const { sendEmail } = require('../helpers')
+const { User } = require('../../models')
+const { sendEmail } = require('../../helpers')
 
 const verify = async (req, res) => {
   const { email } = req.body
@@ -16,16 +14,14 @@ const verify = async (req, res) => {
   const data = {
     to: email,
     subject: 'Please confirm your email',
-    html: `
-  <a href="http://localhost:3000/api/users/verify/${user.verifyToken}">Confirm your email</a>
-  `,
+    html: `<a href="http://localhost:3000/api/users/verify/${user.verifyToken}">Confirm your email</a>`
   }
 
   await sendEmail(data)
   res.json({
     status: 'success',
     code: 200,
-    message: 'Verification email sent',
+    message: 'Verification email sent'
   })
 }
 
