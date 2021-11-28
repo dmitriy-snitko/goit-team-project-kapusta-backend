@@ -14,7 +14,8 @@ const verify = async (req, res) => {
   const data = {
     to: email,
     subject: 'Please confirm your email',
-    html: `<a href="http://localhost:3000/api/users/verify/${user.verifyToken}">Confirm your email</a>`
+    html: `
+    <a href="http://localhost:3000/api/users/verify/${user.verifyToken}">email</a>`
   }
 
   await sendEmail(data)
