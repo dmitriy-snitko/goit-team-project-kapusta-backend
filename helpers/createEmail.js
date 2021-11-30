@@ -32,9 +32,6 @@ const createEmail = (name, verifyToken) => {
       letter-spacing: 0.04em;
 
       color: #52555F;
-      background-image: url('https://i.ibb.co/6D329LL/bgTop.jpg');
-      background-repeat: no-repeat;
-      background-position: top center;
     }
 
     header {
@@ -45,7 +42,7 @@ const createEmail = (name, verifyToken) => {
     .container {
       margin: 0 auto;
       padding: 0 20px;
-      max-width: 450px;
+      max-width: 436px;
     }
 
     .logo {
@@ -100,43 +97,47 @@ const createEmail = (name, verifyToken) => {
       border-radius: 30px;
       border-right: 3px solid rgb(231, 231, 231);
       border-bottom: 3px solid rgb(231, 231, 231);
+      border-left: 1px solid #F5F6FB;
+      border-top: 1px solid #F5F6FB;
 
-      background-image: url('http://i.piccy.info/i9/92459df99db589c715ea5641ba06c13c/1638308073/13835/1450178/bgBot.jpg');
+      background-image: url('https://i.ibb.co/Vv7ssKj/bgBottom.jpg');
       background-repeat: no-repeat;
-      background-position: bottom 25px right 25px;
+      background-position: bottom 25px right 30px;
     }
 
   </style>
 </head>
 <body class="body">
-  <header>
-    <div class="container">
-      <div class="logo">
-        <h1>Kapu$ta</h1>
-        <p>Smart Finance</p>
+  <div style="max-width: 768px; margin: 0 auto; background-image: url('https://i.ibb.co/nMSYP6k/bgTop.jpg'); background-repeat: no-repeat; background-position: top left;">
+    <header>
+      <div class="container">
+        <div class="logo">
+          <h1>Kapu$ta</h1>
+          <p>Smart Finance</p>
+        </div>
       </div>
-    </div>
-  </header>
-  <main>
-    <div class="container">
-      <div class="main-text">
-        <p>Hello, ${name}!</p>
-  
-        <p>
-          You registered an account on <span>Kapusta smart finance</span>, before being able to use your account you need
-          to verify that this is your email address by clicking here:
-        </p>
-  
-        <a href="${BASE_URL}/api/users/verify/${verifyToken}">
-          <button type="button">Verify Your email</button>
-        </a>
-  
-        <p>
-          Kind Regards, <span>Kapusta smart finance.</span>
-        </p>
+    </header>
+    <main>
+      <div class="container">
+        <div class="main-text">
+          <p>Hello, ${name}!</p>
+    
+          <p>
+            You registered an account on <span>Kapusta smart finance</span>, before being able to use your account you need
+            to verify that this is your email address by clicking here:
+          </p>
+    
+          <a href="${BASE_URL}/api/users/verify/${verifyToken}">
+            <button type="button">Verify Your email</button>
+          </a>
+    
+          <p>
+            Kind Regards, <span>Kapusta smart finance.</span>
+          </p>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </body>
 </html>
   `
