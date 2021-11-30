@@ -3,6 +3,7 @@ const totalAmount = require('./totalAmount')
 const summary = require('./summary')
 const getTotal = require('./getTotal')
 const sendEmail = require('./sendEmail')
+const createEmail = require('./createEmail')
 const limiterApi = require('./limiterApi')
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
   summary,
   getTotal,
   sendEmail,
+  createEmail,
   limiterApi
 }
