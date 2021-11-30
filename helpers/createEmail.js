@@ -1,4 +1,7 @@
-<!DOCTYPE html
+const { BASE_URL } = process.env
+
+const createEmail = (name, verifyToken) => {
+  const html = `<!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -29,10 +32,9 @@
       letter-spacing: 0.04em;
 
       color: #52555F;
-      background-color: #F5F6FB;
-      background-image: url('./images/bg-desk-top.svg');
+      background-image: url('https://i.ibb.co/6D329LL/bgTop.jpg');
       background-repeat: no-repeat;
-      background-position: top 25px center;
+      background-position: top center;
     }
 
     header {
@@ -99,7 +101,7 @@
       border-right: 3px solid rgb(231, 231, 231);
       border-bottom: 3px solid rgb(231, 231, 231);
 
-      background-image: url('./images/bg-desk-bot.svg');
+      background-image: url('http://i.piccy.info/i9/92459df99db589c715ea5641ba06c13c/1638308073/13835/1450178/bgBot.jpg');
       background-repeat: no-repeat;
       background-position: bottom 25px right 25px;
     }
@@ -125,7 +127,7 @@
           to verify that this is your email address by clicking here:
         </p>
   
-        <a href="http://${BASE_URL}/api/users/verify/${verifyToken}">
+        <a href="${BASE_URL}/api/users/verify/${verifyToken}">
           <button type="button">Verify Your email</button>
         </a>
   
@@ -137,3 +139,9 @@
   </main>
 </body>
 </html>
+  `
+
+  return html
+}
+
+module.exports = createEmail
