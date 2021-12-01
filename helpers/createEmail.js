@@ -63,7 +63,8 @@ const createEmail = (name, verifyToken) => {
       margin-left: 10px;
     }
 
-    button {
+    a {
+      max-width: 118px;
       display: block;
       margin: 0 auto;
       margin-bottom: 25px;
@@ -80,11 +81,9 @@ const createEmail = (name, verifyToken) => {
       border-radius: 16px;
 
       color: #FFFFFF;
-      background-color: #FF751D;
-    }
-
-    a {
+      background-color: #ff751d;
       text-decoration: none;
+      text-align: center;
     }
 
     .main-text {
@@ -104,11 +103,12 @@ const createEmail = (name, verifyToken) => {
       background-repeat: no-repeat;
       background-position: bottom 25px right 30px;
     }
-
   </style>
 </head>
+
 <body class="body">
-  <div style="max-width: 768px; margin: 0 auto; background-image: url('https://i.ibb.co/nMSYP6k/bgTop.jpg'); background-repeat: no-repeat; background-position: top left;">
+  <div
+    style="max-width: 768px; margin: 0 auto; background-image: url('https://i.ibb.co/nMSYP6k/bgTop.jpg'); background-repeat: no-repeat; background-position: top left;">
     <header>
       <div class="container">
         <div class="logo">
@@ -121,16 +121,15 @@ const createEmail = (name, verifyToken) => {
       <div class="container">
         <div class="main-text">
           <p>Hello, ${name}!</p>
-    
+
           <p>
-            You registered an account on <span>Kapusta smart finance</span>, before being able to use your account you need
+            You registered an account on <span>Kapusta smart finance</span>, before being able to use your account you
+            need
             to verify that this is your email address by clicking here:
           </p>
-    
-          <a href="${BASE_URL}/api/users/verify/${verifyToken}">
-            <button type="button">Verify Your email</button>
-          </a>
-    
+
+          <a href="${BASE_URL}/api/users/verify/${verifyToken}">Verify Your email</a>
+
           <p>
             Kind Regards, <span>Kapusta smart finance.</span>
           </p>
@@ -139,6 +138,7 @@ const createEmail = (name, verifyToken) => {
     </main>
   </div>
 </body>
+
 </html>
   `
 
