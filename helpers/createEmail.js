@@ -100,6 +100,7 @@ const createEmail = (name, verifyToken) => {
       border-left: 1px solid #F5F6FB;
       border-top: 1px solid #F5F6FB;
 
+      color: #52555F;
       background-image: url('https://i.ibb.co/Vv7ssKj/bgBottom.jpg');
       background-repeat: no-repeat;
       background-position: bottom 25px right 30px;
