@@ -75,6 +75,9 @@ const createEmail = (name, verifyToken) => {
       font-weight: bold;
       font-size: 12px;
       letter-spacing: 0.02em;
+
+      text-decoration: none;
+      text-align: center;
       text-transform: uppercase;
 
       border: none;
@@ -82,8 +85,6 @@ const createEmail = (name, verifyToken) => {
 
       color: #FFFFFF;
       background-color: #ff751d;
-      text-decoration: none;
-      text-align: center;
     }
 
     .main-text {
@@ -128,7 +129,7 @@ const createEmail = (name, verifyToken) => {
             to verify that this is your email address by clicking here:
           </p>
 
-          <a href="${BASE_URL}/api/users/verify/${verifyToken}">Verify Your email</a>
+          <a href="${BASE_URL}/api/users/verify/${verifyToken}"><span style="color: #FFFFFF">Verify Your email</span></a>
 
           <p>
             Kind Regards, <span>Kapusta smart finance.</span>
