@@ -9,135 +9,51 @@ const createEmail = (name, verifyToken) => {
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet">
   <title>Document</title>
   <style>
-    .body,
-    h1,
-    p {
-      margin: 0;
-      padding: 0;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
 
-    p {
-      margin-bottom: 25px;
-    }
-
-    .body {
-      font-family: Roboto;
-      font-style: normal;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-
-      color: #52555F;
-    }
-
-    header {
-      margin-bottom: 20px;
-      padding-top: 20px;
-    }
-
-    .container {
-      margin: 0 auto;
-      padding: 0 20px;
-      max-width: 436px;
-    }
-
-    .logo {
-      width: 160px;
-      margin-left: auto;
-    }
-
-    .logo h1 {
-      font-size: 42px;
-      color: #000000;
-    }
-
-    .logo p {
-      font-size: 13px;
-      font-weight: bold;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-left: 10px;
-    }
-
-    a {
-      max-width: 118px;
-      display: block;
-      margin: 0 auto;
-      margin-bottom: 25px;
-      padding: 12px 34px;
-
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 12px;
-      letter-spacing: 0.02em;
-
-      text-decoration: none;
-      text-align: center;
-      text-transform: uppercase;
-
-      border: none;
-      border-radius: 16px;
-
-      color: #FFFFFF;
-      background-color: #ff751d;
-    }
-
-    .main-text {
-      box-sizing: border-box;
-      height: 500px;
-      padding: 30px;
-      padding-top: 40px;
-      background: #FFFFFF;
-
-      border-radius: 30px;
-      border-right: 3px solid rgb(231, 231, 231);
-      border-bottom: 3px solid rgb(231, 231, 231);
-      border-left: 1px solid #F5F6FB;
-      border-top: 1px solid #F5F6FB;
-
-      color: #52555F;
-      background-image: url('https://i.ibb.co/Vv7ssKj/bgBottom.jpg');
-      background-repeat: no-repeat;
-      background-position: bottom 25px right 30px;
-    }
   </style>
 </head>
 
-<body class="body">
-  <div
-    style="max-width: 768px; margin: 0 auto; background-image: url('https://i.ibb.co/nMSYP6k/bgTop.jpg'); background-repeat: no-repeat; background-position: top left;">
-    <header>
-      <div class="container">
-        <div class="logo">
-          <h1>Kapu$ta</h1>
-          <p>Smart Finance</p>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="container">
-        <div class="main-text">
-          <p>Hello, ${name}!</p>
+<body style="margin: 0; font-family: Arial, Helvetica, sans-serif;">
+  <table style="width: 100%; max-width: 768px; margin: 0 auto; border-collapse: collapse; background-repeat: no-repeat; font-size: 14px; color: #52555F"
+    background="https://i.ibb.co/nMSYP6k/bgTop.jpg">
+    <tr>
+      <td></td>
+      <td
+        style="height: 100px; width: 436px; background: url(https://i.ibb.co/q1k4MQP/logo.png); background-repeat: no-repeat; background-position: right bottom;">
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td style="padding-top: 40px; text-align: center;">
+        <div
+          style="padding: 30px; box-sizing: border-box; border-radius: 30px; border-right: 3px solid #e1e1e1; border-left: 1px solid #F5F6FB; border-bottom: 3px solid #e1e1e1; background: #FFFFFF;">
+          <p style="text-align: left; margin-bottom: 30px;">Hello, ${name}!</p>
 
-          <p>
+          <p style="text-align: left; margin-bottom: 30px;">
             You registered an account on <span>Kapusta smart finance</span>, before being able to use your account you
             need
             to verify that this is your email address by clicking here:
           </p>
+         <a href="${BASE_URL}/api/users/verify/${verifyToken}"
+            style="text-transform: uppercase; background: #FF751D; padding: 12px 34px; border-radius: 16px; color: #FFFFFF; text-decoration: none; display: inline-block; margin: 0 auto; margin-bottom: 15px;">Verify
+            Your email
+          </a>
 
-          <a href="${BASE_URL}/api/users/verify/${verifyToken}"><span style="color: #FFFFFF">Verify Your email</span></a>
-
-          <p>
+          <p style="text-align: left; margin-bottom: 30px;">
             Kind Regards, <span>Kapusta smart finance.</span>
           </p>
+          <div style="height: 150px; background: url('https://i.ibb.co/Vv7ssKj/bgBottom.jpg'); background-repeat: no-repeat; background-position: bottom right;">
+          </div>
         </div>
-      </div>
-    </main>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+
   </div>
 </body>
 
