@@ -38,8 +38,7 @@ const createEmail = (name, verifyToken) => {
             need
             to verify that this is your email address by clicking here:
           </p>
-
-          <a href="${BASE_URL}/api/users/verify/${verifyToken}"
+         <a href="${BASE_URL}/api/users/verify/${verifyToken}"
             style="text-transform: uppercase; background: #FF751D; padding: 12px 34px; border-radius: 16px; color: #FFFFFF; text-decoration: none; display: inline-block; margin: 0 auto; margin-bottom: 15px;">Verify
             Your email
           </a>
@@ -54,6 +53,7 @@ const createEmail = (name, verifyToken) => {
       <td></td>
     </tr>
   </table>
+
   </div>
 </body>
 
