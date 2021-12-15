@@ -15,6 +15,7 @@ router.get('/forReports', guard, ctrlWrap(ctrl.getInfoForReports))
 router.post('/incomings', guard, validation(transactionJoiSchema), ctrlWrap(ctrl.incomeings))
 router.post('/outgoings', guard, validation(transactionJoiSchema), ctrlWrap(ctrl.outgoings))
 
+router.put('/:transactionId', guard, validation(transactionJoiSchema), ctrlWrap(ctrl.updateTransaction))
 router.delete('/:transactionId', guard, ctrlWrap(ctrl.removeTransactionById))
 
 module.exports = router
