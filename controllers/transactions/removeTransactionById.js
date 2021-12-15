@@ -10,7 +10,7 @@ const removeTransactionById = async (req, res) => {
     res.status(404).json({
       status: 'error',
       code: 404,
-      message: `Transaction with id:${req.params.transactionId} not found`,
+      message: `Transaction with id:${req.params.transactionId} not found`
     })
     return
   }

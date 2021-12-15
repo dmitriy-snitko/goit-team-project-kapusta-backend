@@ -11,6 +11,7 @@ const outgoingsSummaryForYear = require('./outgoingsSummaryForYear')
 const incomingsSummaryForYear = require('./incomingsSummaryForYear')
 const detailedInformation = require('./detailedInformation')
 const getInfoForReports = require('./getInfoForReports')
+const updateTransaction = require('./updateTransaction')
 
 module.exports = {
   incomeings,
@@ -25,5 +26,6 @@ module.exports = {
   outgoingsSummaryForYear,
   incomingsSummaryForYear,
   detailedInformation,
-  getInfoForReports
+  getInfoForReports,
+  updateTransaction
 }
