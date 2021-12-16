@@ -1,7 +1,5 @@
 const { User } = require('../models')
 const { nanoid } = require('nanoid')
-const { sendEmail } = require('../helpers')
-const { createEmail } = require('../helpers')
 
 const findUserByEmail = async (email) => {
   return await User.findOne({ email })
@@ -10,17 +8,9 @@ const findUserByEmail = async (email) => {
 const createUser = async ({ name, email, password }) => {
   const verifyToken = nanoid()
   const user = new User({ name, email, verifyToken })
-  const html = createEmail(name, verifyToken)
   user.setPassword(password)
 
-  await user.save()
-  const data = {
-    to: email,
-    subject: 'Please confirm your email',
-    html
-  }
-
-  return await sendEmail(data)
+  return await user.save()
 }
 
 const createGoogleUser = async ({ name, email, password }) => {
