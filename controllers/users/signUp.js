@@ -13,7 +13,7 @@ const signUp = async (req, res, next) => {
 
   const { verifyToken } = await Users.createUser(req.body)
   const data = createEmail(req, verifyToken)
-  await sendEmail(data)
+  sendEmail(data)
 
   return res
     .status(CREATED)
